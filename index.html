@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--Nav Bar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img src="./images/pg-logo.jpg" height="45px" width="110px"></img></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Import PDF</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Import Excel</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">View Database</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help</a>
+      </li>
+    </ul>
+  </div>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+
+
+<!-- Page title-->
+<div class="jumbotron text-center ">
+  <h1>Welcome to Principal Global !</h1>
+  <p>Automated Dental Credentialing Authentication</p> 
+</div>
+  
+<!--2 cat card views-->
+<div class="container">
+  <div class="row">
+    <div class="card col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+        <h5 class="card-title">Upload PDF</h5>
+        <p class="card-text">Use a applicant PDF document to auto-authenticate applicant </p>
+        <a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a>
+        <br>
+        <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
+        </div>
+    </div>
+    <div class="col-sm-2">
+      <hr class="hr-ver">
+    </div>
+    <div class="card col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
+      <div class="card-body text-center">
+      <h5 class="card-title">Upload Excel</h5>
+      <p class="card-text">Use a applicant Excel document to auto-authenticate applicant </p>
+      <a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload Excel</a>
+      <br>
+      <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="container">
+  <div class="row  text-center">
+    <div class="card col-sm-12 shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+          <h5 class="card-title">Import from Database</h5>
+          <br>
+          <div class="row">
+          <div class="col-sm-3 mt-2">
+            <label>Enter Application ID : </label>
+          </div>
+          <div class="col-sm-6">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Application ID">
+          </div>
+          <div class="col-sm-3">
+            <button class="btn btn-success" type="submit">Search</button>
+          </div>
+          </div>
+          <br>
+          <p class="text-center">or</p>
+          <br>
+          <div class="row">
+          <div class="col-sm-3 mt-2">
+            <label>Enter Applicant name : </label>
+          </div>
+          <div class="col-sm-6">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Applicant Name">
+          </div>
+          <div class="col-sm-3">
+            <button class="btn btn-success" type="submit">Search</button>
+          </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>
