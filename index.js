@@ -14,6 +14,7 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => res.render('pages/index'));
 
 app.get('/status', (req, res) => res.render('pages/status'));
+
 app.post('/upload', function(req, res) {
     if (!req.files || Object.keys(req.files).length === 0) {
         //return res.status(400).send('No files were uploaded.');
@@ -29,11 +30,6 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
         res.redirect("/");
     });
-    
-    var files = fs.readdirSync(path.join(__dirname, 'uploads'));
-    console.log("Hello");
-    console.log(files);
     });
-
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
