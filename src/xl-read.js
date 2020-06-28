@@ -1,5 +1,5 @@
 if(typeof require !== 'undefined') XLSX = require('xlsx');
-var workbook = XLSX.readFile('test.xlsx',{type:"array"});
+var workbook = XLSX.readFile('./uploads/test.xlsx',{type:"array"});
 
 //console.log(workbook);
 var sheet_name_list = workbook.SheetNames;
