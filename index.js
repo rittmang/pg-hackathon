@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fileUpload = require('express-fileupload');
+var fs = require('fs');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -28,6 +29,11 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
         res.redirect("/");
     });
+    
+    var files = fs.readdirSync(path.join(__dirname, 'uploads'));
+    console.log("Hello");
+    console.log(files);
     });
+
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
