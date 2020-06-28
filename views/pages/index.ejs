@@ -13,24 +13,16 @@
   <div class="row m-2">
     <div class="card  col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
-<<<<<<< HEAD
-          <h5 class="card-title">Upload PDF</h5>
-          <p class="card-text">Use a applicant PDF document to auto-authenticate applicant </p>
-          <a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a>
-          <br>
-          <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
-=======
         <h5 class="card-title">Upload PDF</h5>
         <p class="card-text">Use a applicant PDF document to auto-authenticate applicant </p>
         <form ref='uploadForm' id='uploadForm'  action='upload'  method='post'  encType="multipart/form-data">
           <input class = "form-control" type="file" name="upload_file" />
           <input type = "hidden" name="file_type" value = "pdf"/>
-          <button class = "btn btn-primary" type='submit' value='Upload'> <i class="fa fa-upload" aria-hidden="true"></i> Upload </button>
+          <button class = "btn btn-primary mt-2" type='submit' value='Upload'> <i class="fa fa-upload" aria-hidden="true"></i> Upload </button>
         </form>
           <!--a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a-->
         <br>
         <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
->>>>>>> 80ffe8e6905a6834fc5634bc91222746e4e0bcd5
         </div>
     </div>
     <div class="col-sm-2 ">
@@ -44,7 +36,7 @@
         <form ref='uploadForm' id='uploadForm' action='upload' method='post' encType="multipart/form-data">
           <input class = "form-control" type="file" name="upload_file" />
           <input type = "hidden" name="file_type" value = "xls" />
-          <button class = "btn btn-primary" type='submit' value='Upload'> <i class="fa fa-upload" aria-hidden="true"></i> Upload </button>
+          <button class = "btn btn-primary mt-2" type='submit' value='Upload'> <i class="fa fa-upload" aria-hidden="true"></i> Upload </button>
         </form>
       <br>
       <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
