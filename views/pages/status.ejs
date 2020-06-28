@@ -1,66 +1,120 @@
 <%- include ../partials/header -%>
 <%- include ../partials/nav -%>
 <%
-const status = [
-    {
-        id: 1,
-        name: "bob",
-        status: "Success"
+
+var VerificationListNames = ["license","dea","oig_dhhs","npdb","npi","doNotRecruit","malpractice","sec"];
+const VerificationList = {
+    license:{
+        name:"State License",
+        status : "Verified"
     },
-    {
-        id: 2,
-        name: "john",
-        status: "Fail"
+    dea : {
+        name:"DEA Permit",
+        status : "Failed"
     },
-    {
-        id: 3,
-        name: "jake",
-        status: "Fail"
+    oig_dhhs : {
+        name:"OIG/DHHS ",
+        status : "Manual"
     },
-    {
-        id: 4,
-        name: "jakey",
-        status: "Success"
+    npdb : {
+        name:"NPDB Lookup",
+        status : "Verified"
+    },
+    npi : {
+        name:"NPI Verification",
+        status : "Manual"
+    },
+    doNotRecruit : {
+        name:"Do not Recruit",
+        status : "Error"
+    },
+    malpractice: {
+        name:"Malpractice",
+        status : "Verified"
+    },
+    sec : {
+        name:"Specialty Education Certificate",
+        status : "Failed"
     }
-];
+};
+
+const details = {name:"Jon Cena",appId:"#10321702020",state:"ButUcantSeehim"};
+
  %>
-<body>
+<body >
+
+<div class="m-3">
+
+<div class="container mt-5 p-3 card shadow-lg bg-white rounded">
+    <div class="row  text-center">
+        <div class="col-sm-12">
+            <h1 class="font-weight-bold"><%= details.name %></h1>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-sm-4">
+            <h6>Application ID : <%= details.appId %></h6> 
+        </div>
+        <div class="col-sm-4">
+            
+        </div>
+        <div class="col-sm-4">
+            <h6>State : <%= details.state %></h6>
+        </div>
+        
+        
+    </div>
+    
+    
+</div>
+
 
 <div class="container pt-3">
     <div class="row  text-center">
         <div class="card col-sm-12 shadow-lg p-3 mb-5 bg-white rounded">
             <div class="card-body text-center">
                 <div class = "table-responsive">
-                    <table class="table table-hover">
-                        <thead>
+                    <table class="table table-hover table-striped">
+                        <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Verification Step</th>
                             <th scope="col">Status</th>
                             <th scope="col">Check Again</th>
+                            
                         </tr>
                         </thead>
                         <tbody>
-                        <% for(var i=0; i < status.length; i++) { %>
+                        <% for (var i = 0; i < VerificationListNames.length; i++) { %>
                             <tr>
-                                <td><%= status[i].id %></td>
-                                <td><%= status[i].name %></td>
-                                <% if (status[i].status == "Fail"){ %>
-                                    <td style="color: red;"><%= status[i].status %></td>
-                                <% } else { %>
-                                    <td style="color: green;"><%= status[i].status %></td>
+                                <td><%= i %></td>
+                                <td><%= VerificationList[VerificationListNames[i]].name %></td>
+                                <% if (VerificationList[VerificationListNames[i]].status == "Verified"){ %>
+                                    <td  style="color: green;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
+                                <% } else if ((VerificationList[VerificationListNames[i]].status == "Manual")) { %>
+                                    <td  style="color: orange;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
+                                <% } else if ((VerificationList[VerificationListNames[i]].status == "Failed")) { %>
+                                    <td  style="color: red;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
+                                <% } else if ((VerificationList[VerificationListNames[i]].status == "Error")) { %>
+                                    <td  style="color: red;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
                                 <% } %>
-                                <td><button class="btn btn-success" type="submit">Check</button></td>
+                                
+                                <td><button class="btn btn-success" type="submit">Check </button></td>
                             </tr>
                         <% } %>
                         </tbody>
                     </table>
+                    <hr>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Download Report </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+</div>
 
 </body>
 <%- include ../partials/footer -%>

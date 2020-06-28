@@ -9,26 +9,27 @@
   
 <!--2 cat card views-->
 <div class="container">
-  <div class="row">
-    <div class="card col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="row m-2">
+    <div class="card  col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
-        <h5 class="card-title">Upload PDF</h5>
-        <p class="card-text">Use a applicant PDF document to auto-authenticate applicant </p>
-        <a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a>
-        <br>
-        <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
+          <h5 class="card-title">Upload PDF</h5>
+          <p class="card-text">Use a applicant PDF document to auto-authenticate applicant </p>
+          <a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a>
+          <br>
+          <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
         </div>
     </div>
-    <div class="col-sm-2">
-      <hr class="hr-ver">
+    <div class="col-sm-2 ">
+      <hr class="hr-ver" style="border:none; border-left: 1px solid hsla(200, 10%, 50%,100);  height: 70%; width: 1px;">
     </div>
-    <div class="card col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="card  col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
       <div class="card-body text-center">
       <h5 class="card-title">Upload Excel</h5>
       <p class="card-text">Use a applicant Excel document to auto-authenticate applicant </p>
       <a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload Excel</a>
       <br>
       <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
+      </div>
     </div>
   </div>
 </div>
@@ -37,18 +38,18 @@
 
 <div class="container">
   <div class="row  text-center">
-    <div class="card col-sm-12 shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="card m-3 col-sm-12 shadow-lg p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
           <h5 class="card-title">Import from Database</h5>
           <br>
           <div class="row">
-          <div class="col-sm-3 mt-2">
+          <div class="col-sm-3 mt-3">
             <label>Enter Application ID : </label>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 mt-1">
             <input class="form-control" type="search" placeholder="Search" aria-label="Application ID">
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-3 mt-1">
             <button class="btn btn-success" type="submit">Search</button>
           </div>
           </div>
@@ -56,13 +57,13 @@
           <p class="text-center">or</p>
           <br>
           <div class="row">
-          <div class="col-sm-3 mt-2">
+          <div class="col-sm-3 mt-3">
             <label>Enter Applicant name : </label>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 mt-1">
             <input class="form-control" type="search" placeholder="Search" aria-label="Applicant Name">
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-3 mt-1">
             <button class="btn btn-success" type="submit">Search</button>
           </div>
           </div>
