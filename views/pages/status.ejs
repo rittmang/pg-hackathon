@@ -1,0 +1,66 @@
+<%- include ../partials/header -%>
+<%- include ../partials/nav -%>
+<%
+const status = [
+    {
+        id: 1,
+        name: "bob",
+        status: "Success"
+    },
+    {
+        id: 2,
+        name: "john",
+        status: "Fail"
+    },
+    {
+        id: 3,
+        name: "jake",
+        status: "Fail"
+    },
+    {
+        id: 4,
+        name: "jakey",
+        status: "Success"
+    }
+];
+ %>
+<body>
+
+<div class="container pt-3">
+    <div class="row  text-center">
+        <div class="card col-sm-12 shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card-body text-center">
+                <div class = "table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Check Again</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i=0; i < status.length; i++) { %>
+                            <tr>
+                                <td><%= status[i].id %></td>
+                                <td><%= status[i].name %></td>
+                                <% if (status[i].status == "Fail"){ %>
+                                    <td style="color: red;"><%= status[i].status %></td>
+                                <% } else { %>
+                                    <td style="color: green;"><%= status[i].status %></td>
+                                <% } %>
+                                <td><button class="btn btn-success" type="submit">Check</button></td>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<%- include ../partials/footer -%>

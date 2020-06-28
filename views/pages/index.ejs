@@ -1,51 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../public/stylesheets/style.css" type="text/html">
-</head>
-<body>
 
-<!--Nav Bar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"><img src="./images/pg-logo.png" height="45px" width="110px"></img></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Import PDF</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Import Excel</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">View Database</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Help</a>
-      </li>
-    </ul>
-  </div>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-</nav>
-
-
+<%- include ../partials/header -%>
+<%- include ../partials/nav -%>
 <!-- Page title-->
 <div class="jumbotron text-center ">
   <h1>Welcome to Principal Global !</h1>
@@ -116,9 +71,7 @@
     </div>
   </div>
 </div>
+<%- include ../partials/footer -%>
 
 
 
-
-</body>
-</html>
