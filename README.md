@@ -23,7 +23,17 @@ $ heroku local
 
 Deploy manually on Heroku to save Dyno hours
 
+# API
+API base set for 2 states till now.
+1) Texas
 
+    /texas/[license_id]?fname=[first_name]
+  
+2) Pennsylvania
+
+    /pennstate/[license_id]?fname=[first_name]
+  
+For both cases, if record is found (by license id) and is verified (by fname i.e first name) - you are redirected to the status page.
 
 
 
