@@ -1,12 +1,22 @@
 const express = require("express");
 const path = require("path");
+var mongoose = require('mongoose');
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
 const PORT = process.env.PORT || 5000;
 
+const texas = require('./routes/texas');
+const penn = require('./routes/pennstate');
+
+mongoose.connect('mongodb://localhost/license');
+var db = mongoose.connection;
+
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
+
+app.use('/texas', texas);
+app.use('/pennstate', penn);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
