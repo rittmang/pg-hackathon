@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 const texas = require('./routes/texas');
 const penn = require('./routes/pennstate');
 const nevada = require('./routes/nevada');
+const newyork = require('./routes/newyork');
 
 const excel = require('./routes/excel');
 
@@ -25,6 +26,7 @@ app.use(fileUpload());
 app.use('/texas', texas);
 app.use('/pennstate', penn);
 app.use('/nevada', nevada);
+app.use('/newyork', newyork);
 
 app.use('/excel', excel);
 

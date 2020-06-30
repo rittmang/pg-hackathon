@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
     "csvtojson": "^2.0.10",
     "ejs": "^2.5.6",
     "ejs-lint": "^1.1.0",
