@@ -14,6 +14,9 @@ const penn = require('./routes/pennstate');
 const nevada = require('./routes/nevada');
 const newyork = require('./routes/newyork');
 const california = require('./routes/california');
+const colorado = require('./routes/colorado');
+
+const npi = require('./routes/npi');
 
 const excel = require('./routes/excel');
 
@@ -29,6 +32,9 @@ app.use('/pennstate', penn);
 app.use('/nevada', nevada);
 app.use('/newyork', newyork);
 app.use('/california', california);
+app.use('/colorado', colorado);
+
+app.use('/npi', npi);
 
 app.use('/excel', excel);
 
