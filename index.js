@@ -1,7 +1,11 @@
 const express = require("express");
 const path = require("path");
+const http=require('http')
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
+const texas = require("./texas");
+const { Http2ServerRequest } = require("http2");
+const { export_to_mongo } = require("./texas");
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -14,6 +18,18 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => res.render("pages/index"));
 
 app.get("/status", (req, res) => res.render("pages/status"));
+
+app.get("/downloadtexas",(req,res)=>{
+    texas.download_file('http://ls.tsbde.texas.gov/csv/Dentist.csv')
+    .then(response=>{
+        res.send(response)
+        texas.export_to_mongo()
+    })
+    .catch(error=>{
+        res.send(error)
+    })
+    
+})
 
 app.post("/upload", function (req, res) {
     if (!req.files || Object.keys(req.files).length === 0) {
