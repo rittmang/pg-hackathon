@@ -6,7 +6,6 @@ const assert = require('assert')
 
 
 
-
 module.exports = {
 
     /*
@@ -15,20 +14,25 @@ module.exports = {
     ** parameters 
     */
     download_file: function (url) {
-        console.log("in colorado.js")
+        console.log("in massachusetts.js")
         const options = {
             headers: {
-                "User-Agent": "pg-hack/7.68.0"
-
+                "User-Agent": "pg-hack/7.68.0",
+                "Host":"checkalicense.hhs.state.ma.us",
+                "Sec-Fetch-Dest":"document",
+                "Sec-Fetch-Mode":"navigate",
+                "Sec-Fetch-Site":"none",
+                "Cookie":"ASP.NET_SessionId=51sgtha2gxfd53adnldiyprt"
             }
         }
         return new Promise((resolve, reject) => {
 
-            let file = fs.createWriteStream('./excel/ColoradoDentist.csv');
-            var x = 1;
+            let file = fs.createWriteStream('./excel/MassachusettsDentist.csv');
             https.get(url, options, function (response) {
-
+            var x=1
                 response.on('data', function (chunk) {
+                    console.log(x)
+                    x+=1
                     file.write(chunk)
                 })
                 response.on('end', function () {
@@ -40,11 +44,8 @@ module.exports = {
     },
     export_to_mongo: async function () {
 
-        csvtojson({
-            noheader:false,
-            headers:['LastName','FirstName','MiddleName','Suffix','EntityName','FormattedName','Attention','AddressLine1','AddressLine2','City','State','County','MailZipCode','MailZipCodep4','LicenseType','Subcategory','LicenseNumber','LicenseFirstIssueDate','LicenseLastRenewedDate','LicenseExpirationDate','LicenseStatusDescription','Specialty','Title','Degrees','CaseNumber','ProgramAction','DisciplineEffectiveDate','DisciplineCompleteDate']
-        })
-            .fromFile('./excel/ColoradoDentist.csv')
+        csvtojson()
+            .fromFile('./excel/MasachusettsDentist.csv')
             .then(csvData => {
                 //console.log(csvData);
                 const MongoClient = require('mongodb').MongoClient;
