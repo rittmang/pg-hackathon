@@ -4,13 +4,16 @@ const http=require('http')
 var mongoose = require('mongoose');
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
-const texas = require("./texas");
+
 const { Http2ServerRequest } = require("http2");
-const { export_to_mongo } = require("./texas");
+const { export_to_mongo } = require("./excel/texas");
 const PORT = process.env.PORT || 5000;
 
 const texas = require('./routes/texas');
 const penn = require('./routes/pennstate');
+const nevada = require('./routes/nevada');
+
+const excel = require('./routes/excel');
 
 mongoose.connect('mongodb://localhost/license');
 var db = mongoose.connection;
@@ -21,6 +24,9 @@ app.use(fileUpload());
 
 app.use('/texas', texas);
 app.use('/pennstate', penn);
+app.use('/nevada', nevada);
+
+app.use('/excel', excel);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -29,17 +35,7 @@ app.get("/", (req, res) => res.render("pages/index"));
 
 app.get("/status", (req, res) => res.render("pages/status"));
 
-app.get("/downloadtexas",(req,res)=>{
-    texas.download_file('http://ls.tsbde.texas.gov/csv/Dentist.csv')
-    .then(response=>{
-        res.send(response)
-        texas.export_to_mongo()
-    })
-    .catch(error=>{
-        res.send(error)
-    })
-    
-})
+
 
 app.post("/upload", function (req, res) {
     if (!req.files || Object.keys(req.files).length === 0) {
