@@ -17,30 +17,27 @@
         <form ref='uploadForm' id='uploadForm' action='upload' method='post' encType="multipart/form-data">
           <input class="form-control" type="file" name="upload_file" />
           <input type="hidden" name="file_type" value="pdf" />
-          <button class="btn btn-primary mt-2" type='submit' value='Upload'> <i class="fa fa-upload"
+          <button class="btn btn-primary mt-3" type='submit' value='Upload'> <i class="fa fa-upload"
               aria-hidden="true"></i> Upload </button>
         </form>
         <!--a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a-->
-        <br>
         <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
       </div>
     </div>
     <div class="col-sm-2 ">
       <hr class="hr-ver" style="border:none; border-left: 1px solid hsla(200, 10%, 50%,100);  height: 70%; width: 1px;">
     </div>
+
+
     <div class="card  col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
       <div class="card-body text-center">
-        <h5 class="card-title">Upload Excel</h5>
-        <p class="card-text">Use a applicant Excel document to auto-authenticate applicant </p>
+        <h5 class="card-title">Import from Database</h5>
+        <p class="card-text">Use a preloaded application directly from the database </p>
         <!--a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload Excel</a-->
-        <form ref='uploadForm' id='uploadForm' action='upload' method='post' encType="multipart/form-data">
-          <input class="form-control" type="file" name="upload_file" />
-          <input type="hidden" name="file_type" value="xls" />
-          <button class="btn btn-primary mt-2" type='submit' value='Upload'> <i class="fa fa-upload"
-              aria-hidden="true"></i> Upload </button>
-        </form>
+        <label>Enter Application ID : </label>
+        <input class="form-control" type="search" placeholder="Application ID" aria-label="Application ID">
         <br>
-        <button class="btn btn-success mt-4 pr-3 pl-3 " onclick="printFiles()">Start Authentication Process</button>
+        <button class="btn btn-success mt-4 pr-3 pl-3 " >Start Authentication Process</button>
 
       </div>
     </div>
@@ -49,6 +46,7 @@
 
 <hr>
 
+<!--
 <div class="container">
   <div class="row  text-center">
     <div class="card m-3 col-sm-12 shadow-lg p-3 mb-5 bg-white rounded">
@@ -85,4 +83,5 @@
     </div>
   </div>
 </div>
+-->
 <%- include ../partials/footer -%>
