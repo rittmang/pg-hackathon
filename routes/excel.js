@@ -6,6 +6,7 @@ const texas = require("../excel/texas");
 const colorado = require('../excel/colorado');
 const massachusetts = require('../excel/massachusetts');
 const { response } = require('express');
+const newjersey = require('../excel/newjersey');
 
 router.use(function (req, res, next) {
     console.log('Excel Router');
@@ -41,6 +42,16 @@ router.get("/massachusetts",(req,res)=>{
         .then(response=>{
             res.send(response)
             
+        })
+        .catch(error=>{
+            res.send(error)
+        })
+})
+router.get("/newjersey",(req,res)=>{
+    console.log("In excel.js")
+    newjersey.download_file()
+        .then(response=>{
+            res.send(response)
         })
         .catch(error=>{
             res.send(error)
