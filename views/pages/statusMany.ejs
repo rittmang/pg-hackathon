@@ -1,0 +1,155 @@
+<%- include ../partials/header -%>
+<%- include ../partials/nav -%>
+<%
+
+
+var listPeople = [];
+
+var TempName = ["Kasper Gallegos","Anisa Oconnor","Anika Shah","Anisa Oconnor","Cynthia Wallis","Safah Marsh","Pablo Greene","Kirby Gentry"];
+var TempResponse = ["Verified","Failed","Error"];
+for(var i=0; i < TempName.length;i++)
+{
+    var VerificationList = {
+        "Name " : TempName[i],
+        "State " : "Ohio",
+        "Application Id" : Math.floor((Math.random() * 100000) + 1),
+        "State License": TempResponse[i%3],
+        "DEA Permit" : TempResponse[(i+1)%3],
+        "OIG/DHHS" : TempResponse[(i+2)%3],
+        "NPDB Lookup" : TempResponse[i%3],
+        "NPI Verification" : TempResponse[(i+2)%3],
+        "Malpractice " : TempResponse[i%3],
+        "Specialty Education Certificate" : TempResponse[(i+1)%3],
+    };
+    listPeople.push(VerificationList)
+}
+console.log(listPeople)
+
+const details = {name:"Jonn Doe",appId:"#10321702020",state:"Ohio"};
+
+function returnColor(item)
+{
+    if (item == "Verified")
+    {
+        return "Green";
+    }
+    if (item == "Failed")
+    {
+        return "Orange";
+    }
+    if (item == "Error")
+    {
+        return "Red";
+    }
+}
+
+ %>
+<body >
+
+<div class="m-3">
+
+
+
+<div class="container pt-3">
+    <div class="row  text-center">
+        <div class="card col-sm-12 shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card-body text-center">
+                <div class = "table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Application Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">State License</th>
+                            <th scope="col">DEA Permit</th>
+                            <th scope="col">OIG/DHHS</th>
+                            <th scope="col">NPDB Lookup</th>
+                            <th scope="col">NPI Verification</th>
+                            <th scope="col">Malpractice</th>
+                            <th scope="col">Specialty Certificate</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tbody>
+                                <% for (var i = 0; i < listPeople.length; i++) { %>
+                                    <tr>
+                                        
+                                        <td class="align-middle" >#<%= listPeople[i]["Application Id"] %></td>
+                                        <td class="align-middle" ><b><%= listPeople[i]["Name "] %></b></td>
+                                        
+                                        <% if ((listPeople[i]["State License"]) == "Verified"){ %>
+                                            <td class="align-middle" style="color: green;"><b><%= (listPeople[i]["State License"]) %></b></td>
+                                        <% } else if ((listPeople[i]["State License"]) == "Failed") { %>
+                                            <td  class="align-middle" style="color: orange;"><b><%= (listPeople[i]["State License"]) %></b></td>
+                                        <% } else if ((listPeople[i]["State License"]) == "Error") { %>
+                                            <td  class="align-middle" style="color: red;"><b><%= (listPeople[i]["State License"]) %></b></td>
+                                        <% } %>
+
+                                        <% if ((listPeople[i]["DEA Permit"]) == "Verified"){ %>
+                                            <td class="align-middle" style="color: green;"><b><%= (listPeople[i]["DEA Permit"]) %></b></td>
+                                        <% } else if ((listPeople[i]["DEA Permit"]) == "Failed") { %>
+                                            <td class="align-middle" style="color: orange;"><b><%= (listPeople[i]["DEA Permit"]) %></b></td>
+                                        <% } else if ((listPeople[i]["DEA Permit"]) == "Error") { %>
+                                            <td class="align-middle" style="color: red;"><b><%= (listPeople[i]["DEA Permit"]) %></b></td>
+                                        <% } %>
+
+                                        <% if ((listPeople[i]["OIG/DHHS"]) == "Verified"){ %>
+                                            <td class="align-middle" style="color: green;"><b><%= (listPeople[i]["OIG/DHHS"]) %></b></td>
+                                        <% } else if ((listPeople[i]["OIG/DHHS"]) == "Failed") { %>
+                                            <td class="align-middle" style="color: orange;"><b><%= (listPeople[i]["OIG/DHHS"]) %></b></td>
+                                        <% } else if ((listPeople[i]["OIG/DHHS"]) == "Error") { %>
+                                            <td class="align-middle" style="color: red;"><b><%= (listPeople[i]["OIG/DHHS"]) %></b></td>
+                                        <% } %>
+                                         
+                                        <% if ((listPeople[i]["NPDB Lookup"]) == "Verified"){ %>
+                                            <td class="align-middle" style="color: green;"><b><%= (listPeople[i]["NPDB Lookup"]) %></b></td>
+                                        <% } else if ((listPeople[i]["NPDB Lookup"]) == "Failed") { %>
+                                            <td class="align-middle" style="color: orange;"><b><%= (listPeople[i]["NPDB Lookup"]) %></b></td>
+                                        <% } else if ((listPeople[i]["NPDB Lookup"]) == "Error") { %>
+                                            <td class="align-middle" style="color: red;"><b><%= (listPeople[i]["NPDB Lookup"]) %></b></td>
+                                        <% } %>
+
+                                        <% if ((listPeople[i]["NPI Verification"])  == "Verified"){ %>
+                                            <td class="align-middle" style="color: green;"><b><%= (listPeople[i]["NPI Verification"])  %></b></td>
+                                        <% } else if ((listPeople[i]["NPI Verification"])  == "Failed") { %>
+                                            <td class="align-middle" style="color: orange;"><b><%= (listPeople[i]["NPI Verification"])  %></b></td>
+                                        <% } else if ((listPeople[i]["NPI Verification"])  == "Error") { %>
+                                            <td class="align-middle" style="color: red;"><b><%= (listPeople[i]["NPI Verification"])  %></b></td>
+                                        <% } %>
+
+                                        <% if ((listPeople[i]["Malpractice "])   == "Verified"){ %>
+                                            <td class="align-middle" style="color: green;"><b><%= (listPeople[i]["Malpractice "])   %></b></td>
+                                        <% } else if ((listPeople[i]["Malpractice "])   == "Failed") { %>
+                                            <td class="align-middle" style="color: orange;"><b><%= (listPeople[i]["Malpractice "])   %></b></td>
+                                        <% } else if ((listPeople[i]["Malpractice "])  == "Error") { %>
+                                            <td class="align-middle" style="color: red;"><b><%= (listPeople[i]["Malpractice "])   %></b></td>
+                                        <% } %>
+
+                                        <% if ((listPeople[i]["Specialty Education Certificate"])  == "Verified"){ %>
+                                            <td class="align-middle" style="color: green;"><b><%= (listPeople[i]["Specialty Education Certificate"])  %></b></td>
+                                        <% } else if ((listPeople[i]["Specialty Education Certificate"])  == "Failed") { %>
+                                            <td class="align-middle" style="color: orange;"><b><%= (listPeople[i]["Specialty Education Certificate"])   %></b></td>
+                                        <% } else if ((listPeople[i]["Specialty Education Certificate"]) == "Error") { %>
+                                            <td class="align-middle" style="color: red;"><b><%= (listPeople[i]["Specialty Education Certificate"])   %></b></td>
+                                        <% } %>
+                                        
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Download Report </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+<%- include ../partials/footer -%>

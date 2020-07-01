@@ -2,43 +2,19 @@
 <%- include ../partials/nav -%>
 <%
 
-var VerificationListNames = ["license","dea","oig_dhhs","npdb","npi","doNotRecruit","malpractice","sec"];
-const VerificationList = {
-    license:{
-        name:"State License",
-        status : "Verified"
-    },
-    dea : {
-        name:"DEA Permit",
-        status : "Failed"
-    },
-    oig_dhhs : {
-        name:"OIG/DHHS ",
-        status : "Manual"
-    },
-    npdb : {
-        name:"NPDB Lookup",
-        status : "Verified"
-    },
-    npi : {
-        name:"NPI Verification",
-        status : "Manual"
-    },
-    doNotRecruit : {
-        name:"Do not Recruit",
-        status : "Error"
-    },
-    malpractice: {
-        name:"Malpractice",
-        status : "Verified"
-    },
-    sec : {
-        name:"Specialty Education Certificate",
-        status : "Failed"
-    }
-};
 
-const details = {name:"Jonn Doe",appId:"#10321702020",state:"Ohio"};
+var VerificationList = {
+    'Name ': 'Kirby Gentry',
+    'State ': 'Ohio',
+    'Application Id': 52814,
+    'State License': 'Failed',
+    'DEA Permit': 'Error',
+    'OIG/DHHS': 'Verified',
+    'NPDB Lookup': 'Failed',
+    'NPI Verification': 'Verified',
+    'Malpractice ': 'Failed',
+    'Specialty Education Certificate': 'Error'
+  };
 
  %>
 <body >
@@ -48,18 +24,18 @@ const details = {name:"Jonn Doe",appId:"#10321702020",state:"Ohio"};
 <div class="container mt-5 p-3 card shadow-lg bg-white rounded">
     <div class="row  text-center">
         <div class="col-sm-12">
-            <h1 class="font-weight-bold"><%= details.name %></h1>
+            <h1 class="font-weight-bold"><%= VerificationList["Name "] %></h1>
         </div>
     </div>
     <div class="row text-center">
         <div class="col-sm-4">
-            <h6>Application ID : <%= details.appId %></h6> 
+            <h6>Application ID : <%= VerificationList["Application Id"] %></h6> 
         </div>
         <div class="col-sm-4">
             
         </div>
         <div class="col-sm-4">
-            <h6>State : <%= details.state %></h6>
+            <h6>State : <%= VerificationList["State "]  %></h6>
         </div>
         
         
@@ -85,23 +61,29 @@ const details = {name:"Jonn Doe",appId:"#10321702020",state:"Ohio"};
                         </tr>
                         </thead>
                         <tbody>
-                        <% for (var i = 0; i < VerificationListNames.length; i++) { %>
-                            <tr>
-                                <td><%= i %></td>
-                                <td><%= VerificationList[VerificationListNames[i]].name %></td>
-                                <% if (VerificationList[VerificationListNames[i]].status == "Verified"){ %>
-                                    <td  style="color: green;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
-                                <% } else if ((VerificationList[VerificationListNames[i]].status == "Manual")) { %>
-                                    <td  style="color: orange;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
-                                <% } else if ((VerificationList[VerificationListNames[i]].status == "Failed")) { %>
-                                    <td  style="color: red;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
-                                <% } else if ((VerificationList[VerificationListNames[i]].status == "Error")) { %>
-                                    <td  style="color: red;"><b><%= VerificationList[VerificationListNames[i]].status %></b></td>
-                                <% } %>
+                            <%  var i = 0;
+                                for (var key in VerificationList) {
+                                    if (VerificationList.hasOwnProperty(key)) { 
+                                        i = i +1;
+                                        if (i > 3 )
+                                        {
+
+                                        %>                   
                                 
+                            <tr>
+                                <td><%= i-3 %></td>
+                                <td><%= key %></td>
+                                <% if (VerificationList[key] == "Verified"){ %>
+                                    <td  style="color: green;"><b><%= VerificationList[key] %></b></td>
+                                <% } else if (VerificationList[key]== "Failed") { %>
+                                    <td  style="color: orange;"><b><%= VerificationList[key] %></b></td>
+                                <% } else if (VerificationList[key] == "Error") { %>
+                                    <td  style="color: red;"><b><%= VerificationList[key] %></b></td>
+                                <% } %>
                                 <td><button class="btn btn-success" type="submit">Check </button></td>
                             </tr>
-                        <% } %>
+                            <% }}} %>
+                        
                         </tbody>
                     </table>
                     <hr>

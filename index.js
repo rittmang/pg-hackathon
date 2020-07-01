@@ -37,6 +37,8 @@ app.get("/", (req, res) => res.render("pages/index"));
 
 app.get("/status", (req, res) => res.render("pages/status"));
 
+app.get("/statusMany", (req, res) => res.render("pages/statusMany"));
+
 
 
 app.post("/upload", function (req, res) {
