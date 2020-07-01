@@ -112,10 +112,13 @@ var Texas = module.exports = mongoose.model('Texas', texasSchema);
 // Get Book
 
 module.exports.getTexas = function(callback,limit){
+    console.log("In model function");
     Texas.find(callback).limit(limit);
+    console.log("In model function");
 }
 
 module.exports.getTexasByLICId = function(lic_id,callback){
+    console.log("In model function");
     Texas.findOne({'LIC_ID': lic_id},callback);
 }
 

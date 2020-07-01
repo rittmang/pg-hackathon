@@ -1,36 +1,36 @@
 const express = require('express');
-Texas = require('../models/texas');
+Colorado = require('../models/colorado');
 
 const router = express.Router();
 
 router.use(function (req,res,next){
-    console.log('Texas Router');
+    console.log('Colorado Router');
     next();
 })
 
 router.get('/', function(req,res){
     console.log("In get function");
-    Texas.getTexas(function(err, texas) {
+    Colorado.getColorado(function(err, colorado) {
         console.log("before error");
         if(err){
             throw err;
         }
         console.log("No error");
-        res.json(texas);
+        res.json(colorado);
         console.log("Mai kaha");
     });
 });
 
 router.get('/:lic_id', function(req,res){
-    Texas.getTexasByLICId(req.params.lic_id, function(err, texas) {
+    Colorado.getColoradoByLICId(req.params.lic_id, function(err, colorado) {
         if(err){
             throw err;
         }
-        var name = req.query.fname;
-        if(texas['FIRST_NME'] === name){
+        var name = req.query.full_name;
+        if(colorado['FormattedName'] === name){
             return res.redirect("/status");
         }
-        res.send("No bro");
+        res.send("NUHUH");
         //res.send(texas['LIC_ID'].toString());
     });
 });

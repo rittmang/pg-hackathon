@@ -49,6 +49,7 @@ module.exports = {
                 //console.log(csvData);
                 const MongoClient = require('mongodb').MongoClient;
                 const uri = "mongodb+srv://ritom:ritom@fustercluck-skuxd.mongodb.net/pg-hackathon?retryWrites=true&w=majority";
+                //const uri = "mongodb://localhost/license";
                 (async function () {
                     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -56,9 +57,10 @@ module.exports = {
                         await client.connect();
                         console.log('Connected to Mongo Server');
                         const db = client.db('pg-hackathon');
-                        let s = await db.collection('colorado').drop();
+                        //const db = client.db('license');
+                        let s = await db.collection('colorados').drop();
                         console.log('older collection dropped');
-                        let r = await db.collection('colorado').insertMany(csvData);
+                        let r = await db.collection('colorados').insertMany(csvData);
                         assert.equal(csvData.length, r.insertedCount);
                     } catch (err) {
                         console.log(err.stack);

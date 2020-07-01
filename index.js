@@ -20,7 +20,13 @@ const npi = require('./routes/npi');
 
 const excel = require('./routes/excel');
 
-mongoose.connect('mongodb+srv://ritom:ritom@fustercluck-skuxd.mongodb.net/pg-hackathon?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://ritom:ritom@fustercluck-skuxd.mongodb.net/pg-hackathon?retryWrites=true&w=majority', {
+    useNewUrlParser: true
+}).then(() => console.log('MongoDB Connected...'))
+    .catch(err => console.log(err));
+
+//mongoose.connect('mongodb://localhost/license');
+
 var db = mongoose.connection;
 
 const app = express();
