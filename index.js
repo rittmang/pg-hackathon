@@ -9,14 +9,7 @@ const { Http2ServerRequest } = require("http2");
 const { export_to_mongo } = require("./excel/texas");
 const PORT = process.env.PORT || 5000;
 
-const texas = require('./routes/texas');
-const penn = require('./routes/pennstate');
-const nevada = require('./routes/nevada');
-const newyork = require('./routes/newyork');
-const california = require('./routes/california');
-const colorado = require('./routes/colorado');
-
-const npi = require('./routes/npi');
+const api = require('./routes/api');
 
 const excel = require('./routes/excel');
 
@@ -33,14 +26,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
 
-app.use('/texas', texas);
-app.use('/pennstate', penn);
-app.use('/nevada', nevada);
-app.use('/newyork', newyork);
-app.use('/california', california);
-app.use('/colorado', colorado);
-
-app.use('/npi', npi);
+app.use('/api', api);
 
 app.use('/excel', excel);
 
