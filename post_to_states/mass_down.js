@@ -1,6 +1,7 @@
 var request = require('request');
 var fs = require('fs');
 
+
 var options = {
   'method': 'POST',
   'url': 'https://checkalicense.hhs.state.ma.us/MyLicenseVerification/PrefDetails.aspx',
@@ -23,12 +24,23 @@ var options = {
   body: "__VIEWSTATE=%2FwEPDwUJNzM2NTgwNzkyZGR26V4nAx3F2vBTnMRog2M%2F1JCRkaxNfLzktwxdFRSI8w%3D%3D&__VIEWSTATEGENERATOR=91DA64E5&__EVENTVALIDATION=%2FwEWAwKWweDFCwKYp%2FXBBALPm9D%2BDl9sNUb6bMxezDUyhBqHjEkNmeCzPI0O2%2BbErVQMOyn%2B&filetype=delimitedtext&sch_button=Download"
 
 };
+// console.log(getCookie('ASP.NET_SessionId'));
+var get_cookies=function(request){
+  var cookies={};
+  request.headers && request.headers.cookie.split(';').forEach(function(cookie){
+    var parts=cookie.match(/(.*?)=(.*)$/)
+    cookies[parts[1].trim()]=(parts[2]||'').trim();
+  });
+  return cookies;
+};
+
+
 request(options, function (error, response) {
   //if (error) throw new Error(error);
-
-  fs.writeFile('mass.txt', response.body, function (err) {
-        //if (err) return console.log(err);
-        console.log('probably loaded ... not sure  ... check main directory mass.txt');
-      });
+  console.log(get_cookies(request)['ASP.NET_SessionId']);
+  // fs.writeFile('mass.txt', response.body, function (err) {
+  //       //if (err) return console.log(err);
+  //       console.log('probably loaded ... not sure  ... check main directory mass.txt');
+  //     });
   
 });

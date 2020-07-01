@@ -37,10 +37,10 @@ router.get("/colorado", (req, res) => {
 })
 router.get("/massachusetts",(req,res)=>{
     console.log("In excel.js")
-    massachusetts.download_file('https://checkalicense.hhs.state.ma.us/MyLicenseVerification/PrefDetails.aspx?__VIEWSTATE=%2FwEPDwUJNzM2NTgwNzkyZGR26V4nAx3F2vBTnMRog2M%2F1JCRkaxNfLzktwxdFRSI8w%3D%3D&__VIEWSTATEGENERATOR=91DA64E5&__EVENTVALIDATION=%2FwEWAwKWweDFCwKYp%2FXBBALPm9D%2BDl9sNUb6bMxezDUyhBqHjEkNmeCzPI0O2%2BbErVQMOyn%2B&filetype=delimitedtext&sch_button=Download')
+    massachusetts.download_file()
         .then(response=>{
             res.send(response)
-            //massachusetts.export_to_mongo()
+            
         })
         .catch(error=>{
             res.send(error)
