@@ -6,22 +6,22 @@ var texasSchema  = mongoose.Schema({
         type: String
     },
     LIC_ID :{
-        type:Number
+        type:String
     },
     LIC_NBR :{
-        type:Number
+        type:String
     },
     LIC_STA_CDE : {
-        type:Number
+        type:String
     },
      LIC_STA_DESC  : {
          type: String
      },
      LIC_ORIG_DTE  : {
-         type: Date
+         type: String
      },
      LIC_EXPR_DTE  : {
-         type: Date
+         type: String
      },
      FIRST_NME  : {
          type: String
@@ -51,7 +51,7 @@ var texasSchema  = mongoose.Schema({
          type: String
      },
      ZIP  :{
-        type: Number
+        type: String
      },
      COUNTY  :  {
          type: String
@@ -90,13 +90,13 @@ var texasSchema  = mongoose.Schema({
          type: String
      } ,
      GRAD_YR  : {
-        type: Number
+        type: String
      },
      SCHOOL  :  {
          type: String
      },
      BIRTH_YEAR  : {
-         type: Number
+         type: String
      },
      SHRP_MOD  :{
          type: String

@@ -22,48 +22,23 @@ router.get('/', function(req,res){
 });
 
 router.get('/:lic_id', function(req,res){
-    var param_name = req.query.param_name;
     var is_api = req.query.is_api;
     Texas.getTexasByLICId(req.params.lic_id, function(err, texas) {
         if(err){
             throw err;
         }
-        res.send("No bro");
-        var name = texas['FIRST_NME']
+        var name = texas['FIRST_NME'] + " " + texas['MIDDLE_NME'] + " " + texas['LAST_NME'];
+        var result = [name,texas['LIC_STA_DESC'],texas['LIC_EXPR_DTE'],texas['DISC_ACTION']];
         if(is_api == "true"){
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.send('Verified');
-                //, {tname : tname});
-            }
-            else{
-                res.send("Error");
-            }
+            res.send(JSON.stringify(result));
         }
         else{
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.render('pages/status');
-                //, {tname : tname});
-            }
-            else{
-                res.send("uh oh");
-            }
+            res.render("pages/status", {result: JSON.stringify(result)});
         }
         //res.send(texas['LIC_ID'].toString());
     });
 });
 
 
-
-/*router.post('/', function(req,res){
-    var book = req.body;
-    Book.addBook(book, function(err, book) {
-        if(err){
-            throw err;
-        }
-        res.json(book);
-    });
-});*/
 
 module.exports = router;
