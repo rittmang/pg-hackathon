@@ -11,7 +11,8 @@ router.use(function (req,res,next){
 
 router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
-    var fname = req.query.fname;
+    var param_name = req.query.param_name;
+    var is_api = req.query.is_api;
     //050608
     var body = `profcd=50&plicno=${lic_id}`;
     var options = {
@@ -25,7 +26,6 @@ router.get('/:lic_id',  function(req, res){
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
-
         const fs = require('fs');
         fs.writeFile("./test.html", response.body, function(err) {
             if(err) {
@@ -59,14 +59,27 @@ router.get('/:lic_id',  function(req, res){
                 console.log("Registered through last day of :", last_day)
             }
         }
-
-        if(fname == name_a[0]){
-            res.redirect("/status");
+        name = name_a[0];
+        if(is_api == "true"){
+            if(param_name == name){
+                //var tname = 'Indira';
+                res.send('Verified');
+                //, {tname : tname});
+            }
+            else{
+                res.send("Error");
+            }
         }
         else{
-            res.send("Nope");    //var name = str.search("W3Schools");
+            if(param_name == name){
+                //var tname = 'Indira';
+                res.render('pages/status');
+                //, {tname : tname});
+            }
+            else{
+                res.send("uh oh");
+            }
         }
-
     });
 
 });

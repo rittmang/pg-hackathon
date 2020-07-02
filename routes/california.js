@@ -15,7 +15,9 @@ router.use(function (req,res,next){
 
 router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
-    var param_name = req.query.fname;
+    var is_api = req.query.is_api;
+    console.log(typeof is_api);
+    var param_name = req.query.param_name;
     //65083
     var body = `boardCode=9&licenseType=250&licenseNumber=${lic_id}&busName=&firstName=&lastName=&registryNumber=`;
     var options = {
@@ -69,14 +71,30 @@ router.get('/:lic_id',  function(req, res){
             status = status.slice(16, len);
             console.log("Status : ",status)
             var expdate = $("#expDate").text()
-            console.log("Exp Date : ",expdate)
-
-            if(param_name == name){
-                res.redirect("/status");
+            console.log("Exp Date : ",expdate);
+            console.log(param_name);
+            if(is_api == "true"){
+                if(param_name == name){
+                    //var tname = 'Indira';
+                    res.send('Verified');
+                    //, {tname : tname});
+                }
+                else{
+                    res.send("Error");
+                }
             }
             else{
-                res.send("uh oh");
+                if(param_name == name){
+                    //var tname = 'Indira';
+                    res.render('pages/status');
+                    //, {tname : tname});
+                }
+                else{
+                    res.send("uh oh");
+                }
             }
+
+
         });
 
         //var data = response.body

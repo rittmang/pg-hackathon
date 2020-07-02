@@ -11,7 +11,8 @@ router.use(function (req,res,next){
 
 router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
-    var full_name = req.query.full_name;
+    var param_name = req.query.param_name;
+    var is_api = req.query.is_api;
     var body = "[{\"action\":\"OH_VerifyLicenseCtlr\",\"method\":\"fetchmetadata\",\"data\":[\"\",\"_\\u0001_\"],\"type\":\"rpc\",\"tid\":6,\"ctx\":{\"csrf\":\"VmpFPSxNakF5TUMwd055MHdORlF3Tmpvek9EbzFOaTR3TnpKYSxBSllGMkVCbkJKUzZ0ODZZLWdKbnk1LFlqUTFNemxq\",\"vid\":\"066t0000000L0A9\",\"ns\":\"\",\"ver\":41}},{\"action\":\"OH_VerifyLicenseCtlr\",\"method\":\"findLicensesForOwner\",\"data\":[{\"firstName\":\"\",\"lastName\":\"\",\"middleName\":\"\",\"contactAlias\":\"\",\"board\":\"\",\"licenseType\":\"_\\u0001_\",\"licenseNumber\":\"" + `${lic_id}` + "\",\"city\":\"\",\"state\":\"none\",\"county\":\"\",\"businessBoard\":\"\",\"businessLicenseType\":\"_\\u0001_\",\"businessLicenseNumber\":\"\",\"businessCity\":\"\",\"businessState\":\"none\",\"businessCounty\":\"\",\"businessName\":\"\",\"dbafileld\":\"\",\"searchType\":\"individual\"}],\"type\":\"rpc\",\"tid\":7,\"ctx\":{\"csrf\":\"VmpFPSxNakF5TUMwd055MHdORlF3Tmpvek9EbzFOaTR3TnpKYSx4ODZKRExrY2JPTWlpT0wwWFQtZmZqLFpUWXhZemxr\",\"vid\":\"066t0000000L0A9\",\"ns\":\"\",\"ver\":41}}]"
     var options = {
         'method': 'POST',
@@ -53,12 +54,27 @@ router.get('/:lic_id',  function(req, res){
         console.log("Status: ",status);
         console.log("Board Action: ",boardAction);
         //res.send(data);
-        if(name == full_name){
-            res.redirect("/status");
+        if(is_api == "true"){
+            if(param_name == name){
+                //var tname = 'Indira';
+                res.send('Verified');
+                //, {tname : tname});
+            }
+            else{
+                res.send("Error");
+            }
         }
         else{
-            res.send("Nahi");
+            if(param_name == name){
+                //var tname = 'Indira';
+                res.render('pages/status');
+                //, {tname : tname});
+            }
+            else{
+                res.send("uh oh");
+            }
         }
+
     });
 });
 

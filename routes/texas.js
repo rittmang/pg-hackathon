@@ -22,15 +22,34 @@ router.get('/', function(req,res){
 });
 
 router.get('/:lic_id', function(req,res){
+    var param_name = req.query.param_name;
+    var is_api = req.query.is_api;
     Texas.getTexasByLICId(req.params.lic_id, function(err, texas) {
         if(err){
             throw err;
         }
-        var name = req.query.fname;
-        if(texas['FIRST_NME'] === name){
-            return res.redirect("/status");
-        }
         res.send("No bro");
+        var name = texas['FIRST_NME']
+        if(is_api == "true"){
+            if(param_name == name){
+                //var tname = 'Indira';
+                res.send('Verified');
+                //, {tname : tname});
+            }
+            else{
+                res.send("Error");
+            }
+        }
+        else{
+            if(param_name == name){
+                //var tname = 'Indira';
+                res.render('pages/status');
+                //, {tname : tname});
+            }
+            else{
+                res.send("uh oh");
+            }
+        }
         //res.send(texas['LIC_ID'].toString());
     });
 });

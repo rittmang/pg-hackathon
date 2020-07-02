@@ -17,7 +17,8 @@ router.use(function (req,res,next){
 
 router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
-    var fname = req.query.fname;
+    var param_name = req.query.param_name;
+    var is_api = req.query.is_api;
     var myJSONObject = {"OptPersonFacility":"Person","ProfessionID":13,"LicenseTypeId":156,"LicenseNumber":lic_id,"State":"","Country":"ALL","County": "","IsFacility":0,"PersonId":"","PageNo":1};
     var options =
         {
@@ -33,12 +34,28 @@ router.get('/:lic_id',  function(req, res){
             console.log(dict["FirstName"], dict["MiddleName"], dict["LastName"])
             console.log(dict["Status"])
             console.log(dict["DisciplinaryAction"])
-            if (dict["FirstName"] == fname){
-                res.redirect("/status");
+            var name = dict["FirstName"];
+            if(is_api == "true"){
+                if(param_name == name){
+                    //var tname = 'Indira';
+                    res.send('Verified');
+                    //, {tname : tname});
+                }
+                else{
+                    res.send("Error");
+                }
             }
             else{
-                res.send("No man");
+                if(param_name == name){
+                    //var tname = 'Indira';
+                    res.render('pages/status');
+                    //, {tname : tname});
+                }
+                else{
+                    res.send("uh oh");
+                }
             }
+
         }
     });
 

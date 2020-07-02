@@ -43,6 +43,7 @@ router.get('/', function(req,res){
 
 router.get('/:npi_num', function(req,res){
     var npi_num = req.params.npi_num;
+    var is_api = req.query.is_api;
     var dict = {
         number: npi_num,
         enumeration_type : "",
@@ -71,7 +72,15 @@ router.get('/:npi_num', function(req,res){
         method: "GET",
     }, function (error, response, body){
         console.log(body);
-        res.send(body);
+        console.log(is_api);
+        console.log(typeof is_api);
+        if(is_api == "true"){
+            res.send('Verified'); //Test
+        }
+        else{
+            res.send(body); //Test
+        }
+
     });
 
 });
