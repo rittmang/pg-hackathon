@@ -1,9 +1,8 @@
 const request = require('request');
 const express = require('express');
-var zlib = require("zlib");
 var fs = require('fs');
 const cheerio=require('cheerio');
-const { callbackify } = require('util');
+
 var linkNew = ""
 
 const router = express.Router();
@@ -17,7 +16,7 @@ router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
     var is_api = req.query.is_api;
     console.log(typeof is_api);
-    var param_name = req.query.param_name;
+
     //65083
     var body = `boardCode=9&licenseType=250&licenseNumber=${lic_id}&busName=&firstName=&lastName=&registryNumber=`;
     var options = {
@@ -72,29 +71,14 @@ router.get('/:lic_id',  function(req, res){
             console.log("Status : ",status)
             var expdate = $("#expDate").text()
             console.log("Exp Date : ",expdate);
-            console.log(param_name);
+            console.log("Disciplinary Action : No");
+            var result = [name, status, expdate, "No"]
             if(is_api == "true"){
-                if(param_name == name){
-                    //var tname = 'Indira';
-                    res.send('Verified');
-                    //, {tname : tname});
-                }
-                else{
-                    res.send("Error");
-                }
+                res.send(JSON.stringify(result));
             }
             else{
-                if(param_name == name){
-                    //var tname = 'Indira';
-                    res.render('pages/status');
-                    //, {tname : tname});
-                }
-                else{
-                    res.send("uh oh");
-                }
+                res.render("pages/status", {result: JSON.stringify(result)});
             }
-
-
         });
 
         //var data = response.body

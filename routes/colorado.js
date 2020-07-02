@@ -36,11 +36,11 @@ router.get('/:lic_id', function(req,res){
         var result = [colorado['FormattedName'],colorado['LicenseExpirationDate'],colorado['LicenseStatusDescription'], disc ];
         if(is_api == "true"){
             //var tname = 'Indira';
-            res.send(result);
+            res.send(JSON.stringify(result));
             //, {tname : tname});
         }
         else{
-            res.render('pages/status', {result: result});
+            res.render('pages/status', {result: JSON.stringify(result)});
         }
         //res.send(texas['LIC_ID'].toString());
     });
