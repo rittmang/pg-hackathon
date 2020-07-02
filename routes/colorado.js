@@ -22,32 +22,25 @@ router.get('/', function(req,res){
 });
 
 router.get('/:lic_id', function(req,res){
-    var param_name = req.query.param_name;
     var is_api = req.query.is_api;
     Colorado.getColoradoByLICId(req.params.lic_id, function(err, colorado) {
         if(err){
             throw err;
         }
-        var name = colorado['FormattedName']
-        if(is_api == "true"){
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.send('Verified');
-                //, {tname : tname});
-            }
-            else{
-                res.send("Error");
-            }
+        if(colorado['ProgramAction'] === ""){
+            var disc = "No";
         }
         else{
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.render('pages/status');
-                //, {tname : tname});
-            }
-            else{
-                res.send("uh oh");
-            }
+            var disc = "Yes";
+        }
+        var result = [colorado['FormattedName'],colorado['LicenseExpirationDate'],colorado['LicenseStatusDescription'], disc ];
+        if(is_api == "true"){
+            //var tname = 'Indira';
+            res.send(result);
+            //, {tname : tname});
+        }
+        else{
+            res.render('pages/status', {result: result});
         }
         //res.send(texas['LIC_ID'].toString());
     });
