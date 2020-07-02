@@ -13,7 +13,7 @@ module.exports = {
     */
     download_file: async function () {
 
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({ headless: true,args:['--no-sandbox'] });
         const page = await browser.newPage();
         //await page.setRequestInterception(true);
         await page._client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: './excel' })
