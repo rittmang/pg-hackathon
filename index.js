@@ -66,14 +66,14 @@ app.post("/upload", function (req, res) {
                 return console.log("Unable to scan directory:" + err);
             }
             //list all files
-            api.sendMessage({ chat_id: -1001279904398, text: 'Narayan Narayan, new file uploaded!' }, function (err, message) {
+            api.sendMessage({ chat_id: -1001279904398, text: 'Narayan Narayan\nNew file uploaded!' }, function (err, message) {
                 if (err) throw err;
                 //console.log(message);
             });
             files.forEach(function (file) {
                 console.log(file);
                 if (file != 'test.xlsx' && file != 'file-to-upload-in-portal.xlsx') {
-                    api.sendDocument({ chat_id: -448860125, document: fs.createReadStream(__dirname + "/uploads/" + file) }, function (err, message) {
+                    api.sendDocument({ chat_id: -1001279904398, document: fs.createReadStream(__dirname + "/uploads/" + file) }, function (err, message) {
                         if (err) throw err;
                         console.log(message);
                     })
