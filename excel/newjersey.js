@@ -59,9 +59,9 @@ module.exports = {
                         await client.connect();
                         console.log('Connected to Mongo Server');
                         const db = client.db('pg-hackathon');
-                        let s = await db.collection('newjersey').drop();
+                        let s = await db.collection('newjerseys').drop();
                         console.log('older collection dropped');
-                        let r = await db.collection('newjersey').insertMany(csvData);
+                        let r = await db.collection('newjerseys').insertMany(csvData);
                         assert.equal(csvData.length, r.insertedCount);
                     } catch (err) {
                         console.log(err.stack);
