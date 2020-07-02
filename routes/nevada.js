@@ -30,27 +30,14 @@ router.get('/:lic_id',  function(req, res){
         console.log(temp["PagerVM"]["Records"][0]["FirstName"],temp["PagerVM"]["Records"][0]["MiddleName"],temp["PagerVM"]["Records"][0]["LastName"])
         console.log(temp["PagerVM"]["Records"][0]["LicenseStatusTypeName"])
         console.log(temp["PagerVM"]["Records"][0]["ExpirationDate"])
-        var name = temp["PagerVM"]["Records"][0]["FirstName"];
-
+        //Div container - Dheeraj mistake. - Disciplinary
+        var name = temp["PagerVM"]["Records"][0]["FirstName"]+ " " + temp["PagerVM"]["Records"][0]["MiddleName"] + " " + temp["PagerVM"]["Records"][0]["LastName"];
+        var result = [name,temp["PagerVM"]["Records"][0]["LicenseStatusTypeName"],temp["PagerVM"]["Records"][0]["ExpirationDate"],"No"]
         if(is_api == "true"){
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.send('Verified');
-                //, {tname : tname});
-            }
-            else{
-                res.send("Error");
-            }
+            res.send(JSON.stringify(result));
         }
         else{
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.render('pages/status');
-                //, {tname : tname});
-            }
-            else{
-                res.send("uh oh");
-            }
+            res.render("pages/status", {result: JSON.stringify(result)})
         }
 
 
