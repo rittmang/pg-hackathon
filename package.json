@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "https": "^1.0.0",
-    "mongoose": "^5.9.20",
+    "mongoose": "^5.9.21",
     "pg": "^8.2.1",
     "puppeteer": "^4.0.1",
     "request": "^2.88.2",
