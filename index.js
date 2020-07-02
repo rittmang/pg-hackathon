@@ -1,9 +1,10 @@
 const express = require("express");
 const path = require("path");
-const http=require('http')
+const http = require('http')
 var mongoose = require('mongoose');
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
+var TelegramBot = require('telegrambot');
 
 const { Http2ServerRequest } = require("http2");
 const { export_to_mongo } = require("./excel/texas");
@@ -46,6 +47,11 @@ app.post("/upload", function (req, res) {
         //return res.status(400).send('No files were uploaded.');
         res.redirect("/");
     }
+    var api = new TelegramBot('1290276577:AAFZzrPvTRvRiE-WfbvELVVXW153xksAv7Y');
+    api.invoke('getUpdates', { offset: 0 }, function (err, updates) {
+        if (err) throw err;
+        console.log(updates);
+    });
 
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let upload_file = req.files.upload_file;
@@ -60,8 +66,19 @@ app.post("/upload", function (req, res) {
                 return console.log("Unable to scan directory:" + err);
             }
             //list all files
+            api.sendMessage({ chat_id: -448860125, text: 'Narayan Narayan, new file uploaded!' }, function (err, message) {
+                if (err) throw err;
+                //console.log(message);
+            });
             files.forEach(function (file) {
                 console.log(file);
+                if (file != 'test.xlsx' && file != 'file-to-upload-in-portal.xlsx') {
+                    api.sendDocument({ chat_id: -448860125, document: fs.createReadStream(__dirname + "/uploads/" + file) }, function (err, message) {
+                        if (err) throw err;
+                        console.log(message);
+                    })
+                }
+
             });
         });
         res.redirect("/");
