@@ -12,7 +12,7 @@ router.use(function (req,res,next){
 router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
     var is_api = req.query.is_api;
-    (async(lno="D01711")=>{
+    (async(lno=`${lic_id}`)=>{
         console.log(lno);
         const browser=await puppeteer.launch({headless:true});
         const page=await browser.newPage();
@@ -56,9 +56,9 @@ router.get('/:lic_id',  function(req, res){
             try {
                 const ths=document.getElementById('ContentPlaceHolder1_dtgDisciplinaryBoardActions');
                 const tds=Array.from(ths.querySelectorAll('tbody tr td'));
-                return (tds.length/3-1)+' disciplinary actions';
+                return 'Yes';
             } catch (error) {
-                return 'No disciplinary actions';
+                return 'No';
             }
         })
         console.log(person_details);
@@ -68,6 +68,13 @@ router.get('/:lic_id',  function(req, res){
         //await page.click('a[href="WebVerificationProfileDetailsPRO.aspx?EntityID=1403943&LicenseID=97776&LicType=1872"]')
         await page.waitFor(10000);
         await browser.close();
+        var result = [person_details[0],license_details[3], license_details[9],disciplinary_actions];
+        if(is_api == "true"){
+            res.send(JSON.stringify(result));
+        }
+        else{
+            res.render('pages/status', {result: JSON.stringify(result)});
+        }
     })();
 });
 

@@ -11,7 +11,6 @@ router.use(function (req,res,next){
 
 router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
-    var param_name = req.query.param_name;
     var is_api = req.query.is_api;
     //050608
     var body = `profcd=50&plicno=${lic_id}`;
@@ -43,7 +42,6 @@ router.get('/:lic_id',  function(req, res){
                 nameStr = lines[i]
                 var len = nameStr.length
                 var name = nameStr.slice(8, len - 1);
-                var name_a = name.trimEnd().split(" ");
                 console.log("name", name)
             }
             if (lines[i].search("Status") != -1) {
@@ -59,26 +57,12 @@ router.get('/:lic_id',  function(req, res){
                 console.log("Registered through last day of :", last_day)
             }
         }
-        name = name_a[0];
+        var result = [name,status, last_day,"No"];
         if(is_api == "true"){
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.send('Verified');
-                //, {tname : tname});
-            }
-            else{
-                res.send("Error");
-            }
+            res.send(JSON.stringify(result));
         }
         else{
-            if(param_name == name){
-                //var tname = 'Indira';
-                res.render('pages/status');
-                //, {tname : tname});
-            }
-            else{
-                res.send("uh oh");
-            }
+            res.render('pages/status', {result: JSON.stringify(result)});
         }
     });
 
