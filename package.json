@@ -22,7 +22,7 @@
     "https": "^1.0.0",
     "mongoose": "^5.9.20",
     "pg": "^8.2.1",
-    "puppeteer": "^4.0.1",
+    "puppeteer": "^5.0.0",
     "request": "^2.88.2",
     "telegrambot": "^0.1.0",
     "xlsx": "^0.16.2"
