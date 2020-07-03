@@ -24,7 +24,7 @@ module.exports = {
         }
         return new Promise((resolve, reject) => {
 
-            let file = fs.createWriteStream('./excel/ColoradoDentist.csv');
+            let file = fs.createWriteStream('./excel/downloads/ColoradoDentist.csv');
             var x = 1;
             https.get(url, options, function (response) {
 
@@ -44,7 +44,7 @@ module.exports = {
             noheader:false,
             headers:['LastName','FirstName','MiddleName','Suffix','EntityName','FormattedName','Attention','AddressLine1','AddressLine2','City','State','County','MailZipCode','MailZipCodep4','LicenseType','Subcategory','LicenseNumber','LicenseFirstIssueDate','LicenseLastRenewedDate','LicenseExpirationDate','LicenseStatusDescription','Specialty','Title','Degrees','CaseNumber','ProgramAction','DisciplineEffectiveDate','DisciplineCompleteDate']
         })
-            .fromFile('./excel/ColoradoDentist.csv')
+            .fromFile('./excel/downloads/ColoradoDentist.csv')
             .then(csvData => {
                 //console.log(csvData);
                 const MongoClient = require('mongodb').MongoClient;

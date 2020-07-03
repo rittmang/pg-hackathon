@@ -17,7 +17,7 @@ module.exports = {
             }
         }
         return new Promise((resolve, reject) => {
-            let file = fs.createWriteStream('./excel/FloridaDentist.csv');
+            let file = fs.createWriteStream('./excel/downloads/FloridaDentist.csv');
             var x = 1;
             https.get(url, options, function (response) {
                 response.on('data', function (chunk) {
@@ -39,7 +39,7 @@ module.exports = {
         csvtojson({
             delimiter:'|'
         })
-            .fromFile('./excel/FloridaDentist.csv')
+            .fromFile('./excel/downloads/FloridaDentist.csv')
             .then(csvData => {
                 //console.log(csvData);
                 const MongoClient = require('mongodb').MongoClient;

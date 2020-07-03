@@ -47,7 +47,7 @@ module.exports = {
         csvtojson({
             delimiter: '|'
         })
-            .fromFile('./excel/Data.txt')
+            .fromFile('./excel/downloads/Data.txt')
             .then(csvData => {
                 console.log(csvData);
                 const MongoClient = require('mongodb').MongoClient;
