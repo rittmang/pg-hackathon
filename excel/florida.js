@@ -37,7 +37,9 @@ module.exports = {
     export_to_mongo: function () {
 
         csvtojson({
-            delimiter:'|'
+            delimiter:'|',
+            noheader:true,
+            headers:['pro_code','professionName','lic_id','expireDate','originalDate','rankCode','licenseNumber','statusEffectiveDate','boardActionIndicator']
         })
             .fromFile('./excel/FloridaDentist.csv')
             .then(csvData => {
