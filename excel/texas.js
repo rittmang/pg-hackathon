@@ -20,7 +20,7 @@ module.exports = {
             }
         }
         return new Promise((resolve, reject) => {
-            let file = fs.createWriteStream('./Dentist.csv');
+            let file = fs.createWriteStream('./excel/downloads/Dentist.csv');
             http.get(url, options, function (response) {
 
                 response.on('data', function (chunk) {
@@ -35,7 +35,7 @@ module.exports = {
     export_to_mongo: async function () {
 
         csvtojson()
-            .fromFile('Dentist.csv')
+            .fromFile('./excel/downloads/Dentist.csv')
             .then(csvData => {
                 //console.log(csvData);
                 const MongoClient = require('mongodb').MongoClient;
