@@ -1,13 +1,17 @@
 const https = require('https')
 const fs = require('fs')
-
+//require('https').globalAgent.options.ca=require('ssl-root-cas/latest').create()
 const csvtojson = require('csvtojson')
 const assert = require('assert')
 
 module.exports = {
     download_file: function (url) {
         console.log("in florida.js")
+        // var sslRootCAs=require('ssl-root-cas/latest');
+        // sslRootCAs.inject();
         const options = {
+            rejectUnauthorized:false,
+            requestCert:true,
             headers: {
                 "User-Agent": "pg-hack/7.68.0"
             }
@@ -24,12 +28,16 @@ module.exports = {
                 })
             })
         })
+       
+        // const file=fs.createWriteStream("./excel/FloridaDentist.csv");
+        // const request=https.get(url,function(response){
+        //     response.pipe(file);
+        // })
     },
     export_to_mongo: function () {
 
         csvtojson({
-            noheader:false,
-            headers:['License','Name','Profession','City','LicenseStatus']
+            delimiter:'|'
         })
             .fromFile('./excel/FloridaDentist.csv')
             .then(csvData => {
