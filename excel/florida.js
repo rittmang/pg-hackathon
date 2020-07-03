@@ -38,7 +38,7 @@ module.exports = {
 
         csvtojson({
             delimiter:'|',
-            noheader:true,
+            noheader:false,
             headers:['proCode','professionName','licId','expireDate','originalDate','rankCode','licenseNumber','statusEffectiveDate','boardActionIndicator','licenseStatusDescription','lastName','firstName','middleName','nameSuffix','businessName','licenseActiveStatusDescription','county','countyDescription','mailingAddressLine1','mailingAddressLine2','mailingAddressCity','mailingAddressState','mailingAddressZipCode','mailingAddressAreaCode','mailingAddressPhoneNumber','mailingAddressPhoneExtension','practiceLocationAddressLine1','practiceLocationAddressLine2','practiceLocationAddressCity','practiceLocationAddressState','practiceLocationAddressZipCode','email','modCdes','prescribeInd','dispensingInd']
         })
             .fromFile('./excel/downloads/FloridaDentist.csv')
