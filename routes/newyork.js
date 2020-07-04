@@ -42,24 +42,48 @@ router.get('/:lic_id',  function(req, res){
                 nameStr = lines[i]
                 var len = nameStr.length
                 var name = nameStr.slice(8, len - 1);
+                name.trim()
                 console.log("name", name)
             }
             if (lines[i].search("Status") != -1) {
                 nameStr = lines[i]
                 var len = nameStr.length
                 var status = nameStr.slice(11, len - 1);
+                status.trim()
                 console.log("status", status)
             }
             if (lines[i].search("Registered through last day of :") != -1) {
                 nameStr = lines[i]
                 var len = nameStr.length
                 var last_day = nameStr.slice(33, len - 1);
+                last_day.trim()
                 console.log("Registered through last day of :", last_day)
             }
         }
 
         //Code for disi
-        var url = 'http://www.op.nysed.gov/opd/randx'+ name[0].toLowerCase() + name[0].toLowerCase() +'.htm'
+        
+        if (name[0].toLowerCase()=='i' || name[0].toLowerCase()=="j")
+        {
+            var url = 'http://www.op.nysed.gov/opd/randxij.htm'
+        }
+        else if(name[0].toLowerCase()=='u' || name[0].toLowerCase()=="v")
+        {
+            var url = 'http://www.op.nysed.gov/opd/randxuv.htm'
+        }
+        else if(name[0].toLowerCase()=='q' || name[0].toLowerCase()=="r")
+        {
+            var url = 'http://www.op.nysed.gov/opd/randxqr.htm'
+        }
+        else if(name[0].toLowerCase()=="w" ||name[0].toLowerCase()=="x" || name[0].toLowerCase()=='y' || name[0].toLowerCase()=="z")
+        {
+            var url = 'http://www.op.nysed.gov/opd/randxwz.htm'
+        }
+        else{
+            var url = 'http://www.op.nysed.gov/opd/randx'+ name[0].toLowerCase() + name[0].toLowerCase() +'.htm'
+        }
+        
+        
         console.log(url)
         var request = require('request');
         var options = {
