@@ -24,7 +24,9 @@ router.get('/:lic_id', function(req,res){
             throw err;
         }
         var name = mass['first_name'] + " " + mass['middle_name'] + " " + mass['last_name'];
-        var result = [name, mass['license_status_name'], mass['expiration_date'], "No" ];
+
+        
+        var result = {"Name":name,"Status":mass['license_status_name'],"ExpiryDate" :mass['expiration_date'], "DisciplinaryAction" : "No"};
         if(is_api == "true"){
             res.send(JSON.stringify(result));
         }

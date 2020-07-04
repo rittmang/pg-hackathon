@@ -58,7 +58,8 @@ router.get('/:lic_id',  function(req, res){
               }
       
               var name = temp1["lstVerifyLicenseSearchResponse"][0]["FirstName"] + temp1["lstVerifyLicenseSearchResponse"][0]["LastName"]
-              var result = [name,temp1["lstVerifyLicenseSearchResponse"][0]["LicenseStatusTypeName"],temp1["lstVerifyLicenseSearchResponse"][0]["ExpirationDate"],disci]
+              var result = {"Name":name,"Status":temp1["lstVerifyLicenseSearchResponse"][0]["LicenseStatusTypeName"],"ExpiryDate":temp1["lstVerifyLicenseSearchResponse"][0]["ExpirationDate"],"DisciplinaryAction" :disci}
+              
               if(is_api == "true"){
                   res.send(JSON.stringify(result));
               }

@@ -65,7 +65,7 @@ router.get('/:lic_id',  function(req, res){
             var disi = "No"
         }
 
-        result = [name,status,expiry,disi]
+        result = {"Name":name,"Status":status,"ExpiryDate":expiry,"DisciplinaryAction" :disi}
 
         if(is_api == "true"){
             res.send(JSON.stringify(result));

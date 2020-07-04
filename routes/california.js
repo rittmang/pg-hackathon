@@ -72,7 +72,7 @@ router.get('/:lic_id',  function(req, res){
             var expdate = $("#expDate").text()
             console.log("Exp Date : ",expdate);
             console.log("Disciplinary Action : No");
-            var result = [name, status, expdate, "No"]
+            var result = {"Name":name,"Status":status,"ExpiryDate":expdate,"DisciplinaryAction":"No"}
             if(is_api == "true"){
                 res.send(JSON.stringify(result));
             }

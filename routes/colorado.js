@@ -33,7 +33,9 @@ router.get('/:lic_id', function(req,res){
         else{
             var disc = "Yes";
         }
-        var result = [colorado['FormattedName'],colorado['LicenseExpirationDate'],colorado['LicenseStatusDescription'], disc ];
+
+        
+        var result = {"Name":colorado['FormattedName'],"Status":colorado['LicenseExpirationDate'],"ExpiryDate":colorado['LicenseStatusDescription'],"DisciplinaryAction":disc };
         if(is_api == "true"){
             //var tname = 'Indira';
             res.send(JSON.stringify(result));

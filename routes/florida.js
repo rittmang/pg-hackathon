@@ -24,7 +24,9 @@ router.get('/:lic_id', function(req,res){
             throw err;
         }
         var name = florida['firstName'] + " " + florida['middleName'] + " " + florida['lastName'];
-        var result = [name, florida['licenseStatusDescription'], florida['expireDate'], florida['boardActionIndicator'] ];
+
+       
+        var result = {"Name": name,"Status":florida['licenseStatusDescription'],"ExpiryDate" :florida['expireDate'],"DisciplinaryAction" :florida['boardActionIndicator'] };
         if(is_api == "true"){
             res.send(JSON.stringify(result));
         }

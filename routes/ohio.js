@@ -53,7 +53,7 @@ router.get('/:lic_id',  function(req, res){
         console.log("Status: ",status);
         console.log("Board Action: ",boardAction);
         //res.send(data);
-        var result = [name, status, expDate1, boardAction];
+        var result = {"Name":name,"Status":status,"ExpiryDate": expDate1,"DisciplinaryAction" :boardAction};
         if(is_api == "true"){
             res.send(JSON.stringify(result));
         }
