@@ -26,12 +26,12 @@ router.get('/:lic_id',  function(req, res){
     request(options, function (error, response) {
         if (error) throw new Error(error);
         const fs = require('fs');
-        fs.writeFile("./test.html", response.body, function(err) {
+        /*fs.writeFile("./test.html", response.body, function(err) {
             if(err) {
                 return console.log(err);
             }
             console.log("The file was saved!");
-        });
+        });*/
         const $ = cheerio.load( response.body);
 
         var stringEntire = ($("#content_column").text())
@@ -57,13 +57,47 @@ router.get('/:lic_id',  function(req, res){
                 console.log("Registered through last day of :", last_day)
             }
         }
-        var result = [name,status, last_day,"No"];
+
+        //Code for disi
+        var url = 'http://www.op.nysed.gov/opd/randx'+ name[0].toLowerCase() + name[0].toLowerCase() +'.htm'
+        console.log(url)
+        var request = require('request');
+        var options = {
+            'method': 'GET',
+            'url': url,
+            'headers': {
+            }
+        };
+        request(options, function (error, response) {
+        if (error) throw new Error(error);
+        fs.writeFile("./test.html", response.body, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+            });
+        
+        var n = response.body.search(lic_id);
+        var dici = ""
+        if(n==-1)
+        {
+            dici = "No"
+        }
+        else
+        {
+            dici = "Yes"
+        }
+        //code end for disi
+
+        var result = [name,status, last_day,dici];
         if(is_api == "true"){
             res.send(JSON.stringify(result));
         }
         else{
             res.render('pages/status', {result: JSON.stringify(result)});
         }
+
+    });
     });
 
 });
