@@ -1,44 +1,54 @@
+<script>
+  function hideA(x) {
+    if (x.checked) {
+      document.getElementById("A").style.display = "none";
+      document.getElementById("B").style.display = "block";
+    }
+  }
+
+  function hideB(x) {
+    if (x.checked) {
+      document.getElementById("B").style.display = "none";
+      document.getElementById("A").style.display = "block";
+    }
+  }
+</script>
+
 <%- include ../partials/header -%>
 <%- include ../partials/nav -%>
-</script>
-<!-- Page title-->
-<div class="jumbotron text-center ">
-  <h1>Welcome to Principal Global !</h1>
-  <p>Automated Dental Credentialing Authentication</p>
-</div>
 
 <!--2 cat card views-->
 <div class="container">
-  <div class="row m-2">
-    <div class="card  col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="row" style="display: contents">
+    <div class="card shadow-lg p-3 mb-5 bg-white rounded">
       <div class="card-body text-center">
-        <h5 class="card-title">Upload PDF</h5>
-        <p class="card-text">Use a applicant PDF document to auto-authenticate applicant </p>
+        <h5 class="card-title">Upload the application file or enter the application number instead.</h5>
         <form ref='uploadForm' id='uploadForm' action='upload' method='post' encType="multipart/form-data">
-          <input class="form-control" type="file" name="upload_file" />
-          <input type="hidden" name="file_type" value="pdf" />
-          <button class="btn btn-primary mt-3" type='submit' value='Upload'> <i class="fa fa-upload"
-              aria-hidden="true"></i> Upload </button>
+          <div id="B" style="display:none">
+            <br>
+            <input class="form-control" type="search" placeholder="Application ID" aria-label="Application ID">
+            <button class="btn btn-primary mt-3" type='submit' value='Upload'>
+              <i class="fa fa-search" aria-hidden="true"></i>
+              Search
+            </button>
+          </div>
+          <div id="A">
+            <p class="card-text">Use a applicant Excel document to auto-authenticate applicant </p>
+            <input class="form-control" type="file" name="upload_file" />
+            <input type="hidden" name="file_type" value="pdf" />
+            <button class="btn btn-primary mt-3" type='submit' value='Upload'>
+              <i class="fa fa-upload" aria-hidden="true"></i>
+              Upload
+            </button>
+          </div>
+          <br>
+          <div class = "radio" >
+            <input type="radio" onchange="hideB(this)" name="aorb" checked> File Upload |
+            <input type="radio" onchange="hideA(this)" name="aorb">Application Search
+          </div>
         </form>
         <!--a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a-->
         <button class="btn btn-success mt-4 pr-3 pl-3">Start Authentication Process</button>
-      </div>
-    </div>
-    <div class="col-sm-2 ">
-      <hr class="hr-ver" style="border:none; border-left: 1px solid hsla(200, 10%, 50%,100);  height: 70%; width: 1px;">
-    </div>
-
-
-    <div class="card  col-sm-5 shadow-lg p-3 mb-5 bg-white rounded">
-      <div class="card-body text-center">
-        <h5 class="card-title">Import from Database</h5>
-        <p class="card-text">Use a preloaded application directly from the database </p>
-        <!--a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload Excel</a-->
-        <label>Enter Application ID : </label>
-        <input class="form-control" type="search" placeholder="Application ID" aria-label="Application ID">
-        <br>
-        <button class="btn btn-success mt-4 pr-3 pl-3 " >Start Authentication Process</button>
-
       </div>
     </div>
   </div>
