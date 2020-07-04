@@ -27,18 +27,16 @@
           <div id="B" style="display:none">
             <br>
             <input class="form-control" type="search" placeholder="Application ID" aria-label="Application ID">
-            <button class="btn btn-primary mt-3" type='submit' value='Upload'>
-              <i class="fa fa-search" aria-hidden="true"></i>
-              Search
+            <button class="btn btn-primary mt-3" type='submit' value='application_search' name="authenticate">
+              Authenticate
             </button>
           </div>
           <div id="A">
             <p class="card-text">Use a applicant Excel document to auto-authenticate applicant </p>
             <input class="form-control" type="file" name="upload_file" />
             <input type="hidden" name="file_type" value="pdf" />
-            <button class="btn btn-primary mt-3" type='submit' value='Upload'>
-              <i class="fa fa-upload" aria-hidden="true"></i>
-              Upload
+            <button class="btn btn-primary mt-3" type='submit' value='upload' name = "authenticate">
+              Authenticate
             </button>
           </div>
           <br>
@@ -48,7 +46,7 @@
           </div>
         </form>
         <!--a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a-->
-        <button class="btn btn-primary mt-4 pr-3 pl-3">Authenticate</button>
+
       </div>
     </div>
   </div>
