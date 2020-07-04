@@ -113,7 +113,7 @@ router.get('/:lic_id',  function(req, res){
         }
         //code end for disi
 
-        var result = [name,status, last_day,dici];
+        var result = {"Name":name,"Status":status,"ExpiryDate":last_day,"DisciplinaryAction" :dici};
         if(is_api == "true"){
             res.send(JSON.stringify(result));
         }

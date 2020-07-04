@@ -28,7 +28,7 @@ router.get('/:lic_id', function(req,res){
             throw err;
         }
         var name = texas['FIRST_NME'] + " " + texas['MIDDLE_NME'] + " " + texas['LAST_NME'];
-        var result = [name,texas['LIC_STA_DESC'],texas['LIC_EXPR_DTE'],texas['DISC_ACTION']];
+        var result = {"Name":name,"Status" : texas['LIC_STA_DESC'],"ExpiryDate" : texas['LIC_EXPR_DTE'],"DisciplinaryAction" :texas['DISC_ACTION']};
         if(is_api == "true"){
             res.send(JSON.stringify(result));
         }

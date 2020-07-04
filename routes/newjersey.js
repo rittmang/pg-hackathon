@@ -69,8 +69,8 @@ router.get('/:lic_id', function(req,res){
             {
                 dici = "Yes"
             }
-
-            var result = [name, nj['license_status_name'], nj['expiration_date'], dici ];
+            
+            var result = {"Name" :name, "Status" : nj['license_status_name'],"ExpiryDate":nj['expiration_date'],"DisciplinaryAction":dici };
 
             if(is_api == "true"){
                 res.send(JSON.stringify(result));

@@ -68,7 +68,7 @@ router.get('/:lic_id',  function(req, res){
         //await page.click('a[href="WebVerificationProfileDetailsPRO.aspx?EntityID=1403943&LicenseID=97776&LicType=1872"]')
         await page.waitFor(10000);
         await browser.close();
-        var result = [person_details[0],license_details[3], license_details[9],disciplinary_actions];
+        var result = {"Name":person_details[0],"Status":license_details[3],"ExpiryDate":license_details[9],"DisciplinaryAction":disciplinary_actions};
         if(is_api == "true"){
             res.send(JSON.stringify(result));
         }

@@ -69,8 +69,11 @@ router.get('/:lic_id',  function(req, res){
             console.log("Status", status)
             console.log("Exp Date", exp_date);
             console.log("Disciplined" , disc)
-
-            var result = [name,status,exp_date,disc];
+            
+            
+            
+            
+            var result = {"Name" :name,"Status":status,"ExpiryDate" :exp_date,"DisciplinaryAction" :disc};
             if(is_api == "true"){
                 res.send(JSON.stringify(result));
             }
