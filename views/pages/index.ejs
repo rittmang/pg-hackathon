@@ -2,14 +2,18 @@
   function hideA(x) {
     if (x.checked) {
       document.getElementById("A").style.display = "none";
+      document.getElementById("aa").style.display = "none";
       document.getElementById("B").style.display = "block";
+      document.getElementById("bb").style.display = "block";
     }
   }
 
   function hideB(x) {
     if (x.checked) {
       document.getElementById("B").style.display = "none";
+      document.getElementById("bb").style.display = "none";
       document.getElementById("A").style.display = "block";
+      document.getElementById("aa").style.display = "block";
     }
   }
 </script>
@@ -26,30 +30,32 @@
       <div class="card-body text-center">
         
         <form ref='uploadForm' id='uploadForm' action='upload' method='post' encType="multipart/form-data">
+          <h3 id = "bb" style="display:none" class="card-text">Upload from Database</h3>
+          <h3 id="aa" class="card-text">Upload from Excel</h3>
+          <div class = "radio mt-3" >
+            <input type="radio" onchange="hideB(this)" name="aorb" checked> File Upload |
+            <input type="radio" onchange="hideA(this)" name="aorb"> Application Search
+          </div>
           <div id="B" style="display:none">
-            <h3 class="card-text">Upload from Database</h3>
             <br>
-            <input class="form-control" type="search" placeholder="Application ID" aria-label="Application ID">
+            <input class="form-control" style="height:45px;" type="search" placeholder="Application ID" aria-label="Application ID">
             <br>
             <button class="btn btn-primary mt-1" type='submit' value='application_search' name="authenticate">
               Authenticate
             </button>
           </div>
+          
           <div id="A">
-            <h3 class="card-text">Upload from Excel</h3>
             <br>
-            <input class="form-control" type="file" name="upload_file" />
+            <input class="form-control" type="file" style="height:45px;" name="upload_file" />
             <input type="hidden" name="file_type" value="pdf" />
             <br>
             <button class="btn btn-primary mt-3" type='submit' value='upload' name = "authenticate">
               Authenticate
             </button>
           </div>
-          <br>
-          <div class = "radio" >
-            <input type="radio" onchange="hideB(this)" name="aorb" checked> File Upload |
-            <input type="radio" onchange="hideA(this)" name="aorb"> Application Search
-          </div>
+
+          
         </form>
         <!--a href="#" class="btn btn-primary" id="uploadPDF" onchange="uploadFile()"><i class="fa fa-upload" aria-hidden="true"></i>  Upload PDF</a-->
 
