@@ -75,7 +75,7 @@ router.get('/:lic_id',  function(req, res){
             
             var result = {"Name" :name,"Status":status,"ExpiryDate" :exp_date,"DisciplinaryAction" :disc};
             if(is_api == "true"){
-                res.send(JSON.stringify(result));
+                res.status(200).send(JSON.stringify(result));
             }
             else{
                 res.render('pages/status', {result: JSON.stringify(result)});

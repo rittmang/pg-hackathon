@@ -26,9 +26,7 @@ router.get('/:lic_id', function(req,res){
     Texas.getTexasByLICId(req.params.lic_id, function(err, texas) {
         if(err || texas == null){
             console.log(err);
-            res.status(500);
-            lic_id = req.params.lic_id;
-            res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id });
+            res.send(404);
         }
         else {
             var name = texas['FIRST_NME'] + " " + texas['MIDDLE_NME'] + " " + texas['LAST_NME'];
@@ -39,7 +37,7 @@ router.get('/:lic_id', function(req,res){
                 "DisciplinaryAction": texas['DISC_ACTION']
             };
             if (is_api == "true") {
-                res.send(JSON.stringify(result));
+                res.status(200).send(JSON.stringify(result));
             } else {
                 res.render("pages/status", {result: JSON.stringify(result)});
             }

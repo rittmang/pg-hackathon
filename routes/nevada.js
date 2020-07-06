@@ -27,9 +27,7 @@ router.get('/:lic_id',  function(req, res){
             var temp = JSON.parse(response.body);
             if (error || temp["StatusCode"] == "00") {
                 console.log(error);
-                res.status(500);
-                var state = "Nevada"
-                res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id, state: state  });
+                res.send(404);
             }
             //console.log(response.body);
             else {
@@ -47,9 +45,7 @@ router.get('/:lic_id',  function(req, res){
                 request(options, function (error, response) {
                     if (error){
                         console.log(error);
-                        res.status(500);
-                        var state = "Nevada"
-                        res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id, state: state  });
+                        res.send(404);
                     }//console.log(response.body);
                     else {
                         var temp1 = JSON.parse(response.body);
@@ -76,7 +72,7 @@ router.get('/:lic_id',  function(req, res){
                         }
 
                         if (is_api == "true") {
-                            res.send(JSON.stringify(result));
+                            res.status(200).send(JSON.stringify(result));
                         } else {
                             res.render("pages/status", {result: JSON.stringify(result)})
                         }
@@ -86,7 +82,7 @@ router.get('/:lic_id',  function(req, res){
         });
     } catch(error){
         console.log(error);
-        res.status(500);
+        res.send(404);
         var state = "Nevada"
         res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id, state: state  });
     }

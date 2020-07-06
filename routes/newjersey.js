@@ -22,9 +22,7 @@ router.get('/:lic_id', function(req,res){
     var is_api = req.query.is_api;
     Newjersey.getNJByLICId(req.params.lic_id, function(err, nj) {
         if(err || nj == null){
-            res.status(500);
-            lic_id = req.params.lic_id;
-            res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id });
+            res.send(404);
         }
         else {
             var name = nj['first_name'] + " " + nj['middle_name'] + " " + nj['last_name'];
@@ -77,7 +75,7 @@ router.get('/:lic_id', function(req,res){
                 };
 
                 if (is_api == "true") {
-                    res.send(JSON.stringify(result));
+                    res.status(200).send(JSON.stringify(result));
                 } else {
                     res.render('pages/status', {result: JSON.stringify(result)});
                 }

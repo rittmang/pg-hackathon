@@ -1,8 +1,6 @@
 const request = require('request');
 const express = require('express');
 
-const { ResumeToken } = require('mongodb');
-
 const router = express.Router();
 router.use(function (req,res,next){
     console.log('Ohio Router');
@@ -37,31 +35,45 @@ router.get('/:lic_id',  function(req, res){
         },
         body: body
     };
+    try{
+        request(options, function (error, response) {
+            var temp = JSON.parse(response.body);
+            console.log(typeof temp[1].result);
+            if(error || temp[1].result.length < 1) {
+                console.log(error);
+                res.send(404);
+                console.log(error);
+            }
+            else {
+                var data = temp[1].result[0].license;
+                var name = data.Applicant_Full_Name__c;
+                var expDate = new Date(data.MUSW__Expiration_Date__c);
+                var expDate1 = expDate.getDate() + "-" + expDate.getMonth() + "-" + expDate.getFullYear();
+                var status = data.MUSW__Status__c;
+                var boardAction = data.Board_Action__c;
 
-    request(options, function (error, response) {
-        if (error) throw new Error(error);
-        var temp = JSON.parse(response.body);
-        var data = temp[1].result[0].license;
-        var name = data.Applicant_Full_Name__c;
-        var expDate = new Date(data.MUSW__Expiration_Date__c);
-        var expDate1 = expDate.getDate()+"-"+expDate.getMonth()+"-"+expDate.getFullYear();
-        var status = data.MUSW__Status__c;
-        var boardAction = data.Board_Action__c;
-
-        console.log("Name: ",name);
-        console.log("Expiry Date: ",expDate1);
-        console.log("Status: ",status);
-        console.log("Board Action: ",boardAction);
-        //res.send(data);
-        var result = {"Name":name,"Status":status,"ExpiryDate": expDate1,"DisciplinaryAction" :boardAction};
-        if(is_api == "true"){
-            res.send(JSON.stringify(result));
-        }
-        else{
-                res.render('pages/status', {result: JSON.stringify(result)});
-        }
-
-    });
+                console.log("Name: ", name);
+                console.log("Expiry Date: ", expDate1);
+                console.log("Status: ", status);
+                console.log("Board Action: ", boardAction);
+                //res.send(data);
+                var result = {
+                    "Name": name,
+                    "Status": status,
+                    "ExpiryDate": expDate1,
+                    "DisciplinaryAction": boardAction
+                };
+                if (is_api == "true") {
+                    res.status(200).send(JSON.stringify(result));
+                } else {
+                    res.render('pages/status', {result: JSON.stringify(result)});
+                }
+            }
+        });
+    } catch (error){
+        console.log(error);
+        res.send(404);
+    }
 });
 
 module.exports = router;

@@ -76,13 +76,13 @@ router.get('/:lic_id',  function(req, res){
                 "DisciplinaryAction": disciplinary_actions
             };
             if (is_api == "true") {
-                res.send(JSON.stringify(result));
+                res.status(200).send(JSON.stringify(result));
             } else {
                 res.render('pages/status', {result: JSON.stringify(result)});
             }
         } catch (err) {
             console.error(err.message);
-            res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id });
+            res.send(404);
         } finally {
             await browser.close();
         }
