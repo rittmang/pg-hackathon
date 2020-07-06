@@ -81,7 +81,7 @@ app.post("/upload", function (req, res) {
 
             });
         });
-        res.redirect("/");
+        res.redirect("/statusMany");
     });
 });
 
