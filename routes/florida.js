@@ -19,7 +19,11 @@ router.get('/', function(req,res){
 
 router.get('/:lic_id', function(req,res){
     var is_api = req.query.is_api;
-    Florida.getFloridaByLICId(req.params.lic_id, function(err, florida) {
+    var lic = req.params.lic_id
+    var lend = lic.length
+    var real_lic = lic.slice(2,lend) 
+
+    Florida.getFloridaByLICId(real_lic, function(err, florida) {
         if(err || florida == null){
             res.send(404);
         }
