@@ -46,7 +46,6 @@ router.get('/:lic_id',  function(req, res){
     try {
         request(options, function (error, response) {
             if (error) {
-                throw error;
                 console.log(error);
                 res.send(404);
             }
