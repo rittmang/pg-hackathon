@@ -20,20 +20,28 @@ router.get('/', function(req,res){
 router.get('/:lic_id', function(req,res){
     var is_api = req.query.is_api;
     Massachusetts.getMassByLICId(req.params.lic_id, function(err, mass) {
-        if(err){
-            throw err;
+        if(err || mass == null){
+            console.log(err);
+            res.status(500);
+            lic_id = req.params.lic_id;
+            res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id });
         }
-        var name = mass['first_name'] + " " + mass['middle_name'] + " " + mass['last_name'];
+        else {
+            var name = mass['first_name'] + " " + mass['middle_name'] + " " + mass['last_name'];
 
-        
-        var result = {"Name":name,"Status":mass['license_status_name'],"ExpiryDate" :mass['expiration_date'], "DisciplinaryAction" : "No"};
-        if(is_api == "true"){
-            res.send(JSON.stringify(result));
-        }
-        else{
-            res.render('pages/status', {result: JSON.stringify(result)});
-        }
 
+            var result = {
+                "Name": name,
+                "Status": mass['license_status_name'],
+                "ExpiryDate": mass['expiration_date'],
+                "DisciplinaryAction": "No"
+            };
+            if (is_api == "true") {
+                res.send(JSON.stringify(result));
+            } else {
+                res.render('pages/status', {result: JSON.stringify(result)});
+            }
+        }
         //res.send(texas['LIC_ID'].toString());
     });
 });

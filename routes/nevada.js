@@ -22,52 +22,74 @@ router.get('/:lic_id',  function(req, res){
         body: JSON.stringify({"sortType":"LicenseNumber","sortOrder":"asc","currentPage":1,"totalRecords":82,"pageSize":10,"maxSize":5,"Data":{"LastName":"","FirstName":"","LicenseNumber":lic_id}})
 
     };
-    request(options, function (error, response) {
-        if (error) throw new Error(error);
-        //console.log(response.body);
-        var temp  = JSON.parse(response.body);
-        user_id = temp["PagerVM"]["Records"][0]["IndividualId"];
-        
-        var options = {
-            'method': 'GET',
-            'url': 'https://ws.nvdental.org/api/Individual/VerifyLicenseSearchBYIndividualId?IndividualId='+user_id,
-            'headers': {
-              'Content-Type': 'application/json'
-            },
-          };
-      
-          request(options, function (error, response) {
-            if (error) throw new Error(error);
-              //console.log(response.body);
-              var temp1 = JSON.parse(response.body);
-              var disci = ""
-              //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["FirstName"],temp1["lstVerifyLicenseSearchResponse"][0]["LastName"]);
-              //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["LicenseStatusTypeName"]);
-              //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["ExpirationDate"]);
-              //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["MalpracticeList"].length);
-              
-              if (temp1["lstVerifyLicenseSearchResponse"][0]["MalpracticeList"].length != 0)
-              {
-                //temp1["lstVerifyLicenseSearchResponse"][0]["MalpracticeList"][0]["ActionType"] != null
-                disci = "Yes"
+    try {
+        request(options, function (error, response) {
+            var temp = JSON.parse(response.body);
+            if (error || temp["StatusCode"] == "00") {
+                console.log(error);
+                res.status(500);
+                var state = "Nevada"
+                res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id, state: state  });
+            }
+            //console.log(response.body);
+            else {
+                console.log(response.body);
+                user_id = temp["PagerVM"]["Records"][0]["IndividualId"];
 
-              }
-              else
-              {
-                disci = "No"
-              }
-      
-              var name = temp1["lstVerifyLicenseSearchResponse"][0]["FirstName"] + temp1["lstVerifyLicenseSearchResponse"][0]["LastName"]
-              var result = {"Name":name,"Status":temp1["lstVerifyLicenseSearchResponse"][0]["LicenseStatusTypeName"],"ExpiryDate":temp1["lstVerifyLicenseSearchResponse"][0]["ExpirationDate"],"DisciplinaryAction" :disci}
-              
-              if(is_api == "true"){
-                  res.send(JSON.stringify(result));
-              }
-              else{
-                  res.render("pages/status", {result: JSON.stringify(result)})
-              }
-          });
-    });
+                var options = {
+                    'method': 'GET',
+                    'url': 'https://ws.nvdental.org/api/Individual/VerifyLicenseSearchBYIndividualId?IndividualId=' + user_id,
+                    'headers': {
+                        'Content-Type': 'application/json'
+                    },
+                };
+
+                request(options, function (error, response) {
+                    if (error){
+                        console.log(error);
+                        res.status(500);
+                        var state = "Nevada"
+                        res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id, state: state  });
+                    }//console.log(response.body);
+                    else {
+                        var temp1 = JSON.parse(response.body);
+                        var disci = ""
+                        //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["FirstName"],temp1["lstVerifyLicenseSearchResponse"][0]["LastName"]);
+                        //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["LicenseStatusTypeName"]);
+                        //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["ExpirationDate"]);
+                        //console.log(temp1["lstVerifyLicenseSearchResponse"][0]["MalpracticeList"].length);
+
+                        if (temp1["lstVerifyLicenseSearchResponse"][0]["MalpracticeList"].length != 0) {
+                            //temp1["lstVerifyLicenseSearchResponse"][0]["MalpracticeList"][0]["ActionType"] != null
+                            disci = "Yes"
+
+                        } else {
+                            disci = "No"
+                        }
+
+                        var name = temp1["lstVerifyLicenseSearchResponse"][0]["FirstName"] + temp1["lstVerifyLicenseSearchResponse"][0]["LastName"]
+                        var result = {
+                            "Name": name,
+                            "Status": temp1["lstVerifyLicenseSearchResponse"][0]["LicenseStatusTypeName"],
+                            "ExpiryDate": temp1["lstVerifyLicenseSearchResponse"][0]["ExpirationDate"],
+                            "DisciplinaryAction": disci
+                        }
+
+                        if (is_api == "true") {
+                            res.send(JSON.stringify(result));
+                        } else {
+                            res.render("pages/status", {result: JSON.stringify(result)})
+                        }
+                    }
+                });
+            }
+        });
+    } catch(error){
+        console.log(error);
+        res.status(500);
+        var state = "Nevada"
+        res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id, state: state  });
+    }
 });
 
 module.exports = router;

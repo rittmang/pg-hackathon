@@ -20,20 +20,27 @@ router.get('/', function(req,res){
 router.get('/:lic_id', function(req,res){
     var is_api = req.query.is_api;
     Florida.getFloridaByLICId(req.params.lic_id, function(err, florida) {
-        if(err){
-            throw err;
+        if(err || florida == null){
+            res.status(500);
+            lic_id = req.params.lic_id;
+            res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id });
         }
-        var name = florida['firstName'] + " " + florida['middleName'] + " " + florida['lastName'];
+        else {
+            var name = florida['firstName'] + " " + florida['middleName'] + " " + florida['lastName'];
 
-       
-        var result = {"Name": name,"Status":florida['licenseStatusDescription'],"ExpiryDate" :florida['expireDate'],"DisciplinaryAction" :florida['boardActionIndicator'] };
-        if(is_api == "true"){
-            res.send(JSON.stringify(result));
-        }
-        else{
-            res.render('pages/status', {result: JSON.stringify(result)});
-        }
 
+            var result = {
+                "Name": name,
+                "Status": florida['licenseStatusDescription'],
+                "ExpiryDate": florida['expireDate'],
+                "DisciplinaryAction": florida['boardActionIndicator']
+            };
+            if (is_api == "true") {
+                res.send(JSON.stringify(result));
+            } else {
+                res.render('pages/status', {result: JSON.stringify(result)});
+            }
+        }
         //res.send(texas['LIC_ID'].toString());
     });
 });

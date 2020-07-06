@@ -43,46 +43,65 @@ router.get('/:lic_id',  function(req, res){
 
     };
 
-    request(options, function (error, response) {
-        if (error) throw new Error(error);
-        var $ = cheerio.load(response.body);
-
-        linkNew = "https://search.dca.ca.gov" + $("#\\30  > footer > ul:nth-child(2) > li:nth-child(2) > a").attr('href')
-        var options = {
-            'method': 'GET',
-            'url': linkNew,
-        };
+    try {
         request(options, function (error, response) {
-            if (error) throw new Error(error);
-
-            fs.writeFile('test.html', response.body, function (err) {
-                if (err) return console.log(err);
-                //console.log('Hello World > helloworld.txt');
-            });
-
-            $ = cheerio.load(response.body);
-            var name = $("#name").text()
-            var len = name.length
-            name = name.slice(6, len);
-            console.log("Name :" ,name)
-            var status  = $("#primaryStatus").text().trim()
-            var len = status.length
-            status = status.slice(16, len);
-            console.log("Status : ",status)
-            var expdate = $("#expDate").text()
-            console.log("Exp Date : ",expdate);
-            console.log("Disciplinary Action : No");
-            var result = {"Name":name,"Status":status,"ExpiryDate":expdate,"DisciplinaryAction":"No"}
-            if(is_api == "true"){
-                res.send(JSON.stringify(result));
+            if (error) {
+                throw error;
+                console.log(error);
+                res.status(500);
+                res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id});
             }
-            else{
-                res.render("pages/status", {result: JSON.stringify(result)});
+            else {
+                var $ = cheerio.load(response.body);
+
+                linkNew = "https://search.dca.ca.gov" + $("#\\30  > footer > ul:nth-child(2) > li:nth-child(2) > a").attr('href')
+                var options = {
+                    'method': 'GET',
+                    'url': linkNew,
+                };
+                request(options, function (error, response) {
+                    if (error) {
+                        console.log(error);
+                        res.status(500);
+                        res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id});
+                    }
+                    else
+                    {
+                        fs.writeFile('test.html', response.body, function (err) {
+                            console.log(err);
+                            res.status(500);
+                            res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id});
+                            //console.log('Hello World > helloworld.txt');
+                        });
+
+                        $ = cheerio.load(response.body);
+                        var name = $("#name").text()
+                        var len = name.length
+                        name = name.slice(6, len);
+                        console.log("Name :", name)
+                        var status = $("#primaryStatus").text().trim()
+                        var len = status.length
+                        status = status.slice(16, len);
+                        console.log("Status : ", status)
+                        var expdate = $("#expDate").text()
+                        console.log("Exp Date : ", expdate);
+                        console.log("Disciplinary Action : No");
+                        var result = {"Name": name, "Status": status, "ExpiryDate": expdate, "DisciplinaryAction": "No"}
+                        if (is_api == "true") {
+                            res.send(JSON.stringify(result));
+                        } else {
+                            res.render("pages/status", {result: JSON.stringify(result)});
+                        }
+                    }
+                });
+                //var data = response.body
             }
         });
-
-        //var data = response.body
-    });
+    }catch(error){
+        console.log(error);
+        res.status(500);
+        res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id});
+    }
 
 });
 

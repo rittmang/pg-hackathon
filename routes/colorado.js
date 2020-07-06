@@ -24,25 +24,33 @@ router.get('/', function(req,res){
 router.get('/:lic_id', function(req,res){
     var is_api = req.query.is_api;
     Colorado.getColoradoByLICId(req.params.lic_id, function(err, colorado) {
-        if(err){
-            throw err;
+        if(err || colorado == null){
+            console.log(err);
+            res.status(500);
+            lic_id = req.params.lic_id;
+            res.render('pages/not_found', {title: 'License Not Found', lic_id: lic_id });
         }
-        if(colorado['ProgramAction'] === ""){
-            var disc = "No";
-        }
-        else{
-            var disc = "Yes";
-        }
+        else {
+            if (colorado['ProgramAction'] === "") {
+                var disc = "No";
+            } else {
+                var disc = "Yes";
+            }
 
-        
-        var result = {"Name":colorado['FormattedName'],"Status":colorado['LicenseExpirationDate'],"ExpiryDate":colorado['LicenseStatusDescription'],"DisciplinaryAction":disc };
-        if(is_api == "true"){
-            //var tname = 'Indira';
-            res.send(JSON.stringify(result));
-            //, {tname : tname});
-        }
-        else{
-            res.render('pages/status', {result: JSON.stringify(result)});
+
+            var result = {
+                "Name": colorado['FormattedName'],
+                "Status": colorado['LicenseExpirationDate'],
+                "ExpiryDate": colorado['LicenseStatusDescription'],
+                "DisciplinaryAction": disc
+            };
+            if (is_api == "true") {
+                //var tname = 'Indira';
+                res.send(JSON.stringify(result));
+                //, {tname : tname});
+            } else {
+                res.render('pages/status', {result: JSON.stringify(result)});
+            }
         }
         //res.send(texas['LIC_ID'].toString());
     });
