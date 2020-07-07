@@ -69,7 +69,7 @@ app.post("/upload", function (req, res) {
     upload_file.mv("uploads/" + "input.xlsx", function (err) {
         if (err) return res.status(500).send(err);
         const directoryPath = path.join(__dirname, "uploads");
-        fs.readdir(directoryPath, function (err, files) {
+        /*fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
                 return console.log("Unable to scan directory:" + err);
@@ -89,7 +89,7 @@ app.post("/upload", function (req, res) {
                 }
 
             });
-        });
+        });*/
 
         main_controller();
 
@@ -122,15 +122,18 @@ function main_controller()
     var newData = new Array();
 
     // every for reinit remember
-    var dict = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
-    for (var key in data[0]) {
-        if (data[0].hasOwnProperty(key)) {           
-            //console.log(key, data[0][key]);
-            dict[key] = data[0][key]
-            
+    for (var i=0; i<data.length;i++)
+    {
+        var dict = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
+        for (var key in data[i]) {
+            if (data[i].hasOwnProperty(key)) {           
+                //console.log(key, data[0][key]);
+                dict[0][key] = data[i][key]
+            }
         }
+        newData.push(dict[0])
+    //console.log(newData)
     }
-    newData.push(dict)
     //for should end here
 
     //console.log("mydata ::", newData[0]);
@@ -145,4 +148,3 @@ function main_controller()
     //XLSX.writeFile(workbook_op,"./uploads/out.xlsx")
 
 }
-
