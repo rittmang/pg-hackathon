@@ -61,15 +61,14 @@ app.post("/upload", function (req, res) {
         //res.redirect("/");
         //http://localhost:5000/
         //http://pg-hackathon.herokuapp.com/
-        res.send('<script> window.alert("Please Upload xlsx file");window.location.href="http://localhost:5000/";</script>')
+        res.send('<script> window.alert("Please Upload xlsx file");window.location.href="http://pg-hackathon.herokuapp.com/";</script>')
     }
     else
     {
     // Use the mv() method to place the file somewhere on your server
     upload_file.mv("uploads/" + "input.xlsx", function (err) {
         if (err) return res.status(500).send(err);
-
-        /*const directoryPath = path.join(__dirname, "uploads");
+        const directoryPath = path.join(__dirname, "uploads");
         fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
@@ -90,13 +89,18 @@ app.post("/upload", function (req, res) {
                 }
 
             });
-        });*/
+        });
 
         main_controller();
 
         res.redirect("/statusMany");
     });
     }
+});
+
+app.get('/download', function(req, res){
+    const file = `${__dirname}/uploads/output_excel.xlsx`;
+    res.download(file); // Set disposition and send it.
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
