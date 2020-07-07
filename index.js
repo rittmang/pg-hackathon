@@ -61,7 +61,7 @@ app.post("/upload", function (req, res) {
         //res.redirect("/");
         //http://localhost:5000/
         //http://pg-hackathon.herokuapp.com/
-        res.send('<script> window.alert("Please Upload xlsx file");window.location.href="http://localhost:5000/";</script>')
+        res.send('<script> window.alert("Please Upload xlsx file");window.location.href="http://pg-hackathon.herokuapp.com/";</script>')
     }
     else
     {
