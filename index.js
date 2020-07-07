@@ -50,7 +50,7 @@ app.post("/upload", function (req, res) {
     var api = new TelegramBot('1290276577:AAFZzrPvTRvRiE-WfbvELVVXW153xksAv7Y');
     api.invoke('getUpdates', { offset: 0 }, function (err, updates) {
         if (err) throw err;
-        console.log(updates);
+        //console.log(updates);
     });
 
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
@@ -91,7 +91,7 @@ app.post("/upload", function (req, res) {
             });
         });
 
-        //main_controller();
+        main_controller();
 
         res.redirect("/statusMany");
     });
@@ -109,32 +109,42 @@ function main_controller()
 {
     if (typeof require !== 'undefined') XLSX = require('xlsx');
     var workbook = XLSX.readFile('./uploads/input.xlsx', { type: "array" });
-
-    //console.log(workbook);
     var sheet_name_list = workbook.SheetNames;
     var data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
 
-    //console.log("full data ::", data);
+    
+    var workbook_op = XLSX.readFile('./uploads/output_head.xlsx', { type: "array" });
+    var sheet_name_list_op = workbook_op.SheetNames;
+    var dict = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
 
-    //console.log("mydata ::", data[0]);
+
 
     var newData = new Array();
 
-    for (var i = 0; i < data.length; i++) {
-        newData.push(data[i]);
+    // every for reinit remember
+    for (var i=0; i<data.length;i++)
+    {
+        var dict = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
+        for (var key in data[i]) {
+            if (data[i].hasOwnProperty(key)) {           
+                //console.log(key, data[0][key]);
+                dict[0][key] = data[i][key]
+            }
+        }
+        newData.push(dict[0])
+    //console.log(newData)
     }
+    //for should end here
 
     //console.log("mydata ::", newData[0]);
 
-    var workbook_op = XLSX.readFile('./uploads/output.xlsx', { type: "array" });
-
-    //console.log(workbook);
-    var sheet_name_list_op = workbook_op.SheetNames;
-    //var data = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
+    var newWB = XLSX.utils.book_new()
+    var newWS = XLSX.utils.json_to_sheet(newData)
+    XLSX.utils.book_append_sheet(newWB,newWS,"jsonToXl")
+    XLSX.writeFile(newWB,"./uploads/output.xlsx")
 
     //book_append_sheet(workbook_op,sheet_name_list_op[0],"jsonToXl")
     //sheet_name_list_op[0].push(newData)
     //XLSX.writeFile(workbook_op,"./uploads/out.xlsx")
 
 }
-
