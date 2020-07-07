@@ -56,10 +56,20 @@ app.post("/upload", function (req, res) {
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let upload_file = req.files.upload_file;
     var name = upload_file.name;
+    if (name.search("xlsx") == -1){
+        
+        //res.redirect("/");
+        //http://localhost:5000/
+        //http://pg-hackathon.herokuapp.com/
+        res.send('<script> window.alert("Please Upload xlsx file");window.location.href="http://localhost:5000/";</script>')
+    }
+    else
+    {
     // Use the mv() method to place the file somewhere on your server
-    upload_file.mv("uploads/" + name, function (err) {
+    upload_file.mv("uploads/" + "input.xlsx", function (err) {
         if (err) return res.status(500).send(err);
-        const directoryPath = path.join(__dirname, "uploads");
+
+        /*const directoryPath = path.join(__dirname, "uploads");
         fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
@@ -80,9 +90,47 @@ app.post("/upload", function (req, res) {
                 }
 
             });
-        });
+        });*/
+
+        //main_controller();
+
         res.redirect("/statusMany");
     });
+    }
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+function main_controller()
+{
+    if (typeof require !== 'undefined') XLSX = require('xlsx');
+    var workbook = XLSX.readFile('./uploads/input.xlsx', { type: "array" });
+
+    //console.log(workbook);
+    var sheet_name_list = workbook.SheetNames;
+    var data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+
+    //console.log("full data ::", data);
+
+    //console.log("mydata ::", data[0]);
+
+    var newData = new Array();
+
+    for (var i = 0; i < data.length; i++) {
+        newData.push(data[i]);
+    }
+
+    //console.log("mydata ::", newData[0]);
+
+    var workbook_op = XLSX.readFile('./uploads/output.xlsx', { type: "array" });
+
+    //console.log(workbook);
+    var sheet_name_list_op = workbook_op.SheetNames;
+    //var data = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
+
+    //book_append_sheet(workbook_op,sheet_name_list_op[0],"jsonToXl")
+    //sheet_name_list_op[0].push(newData)
+    //XLSX.writeFile(workbook_op,"./uploads/out.xlsx")
+
+}
+
