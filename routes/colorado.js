@@ -26,7 +26,15 @@ router.get('/:lic_id', function(req,res){
     var lic = req.params.lic_id
     var lend = lic.length
     var dot = lic.indexOf(".")
-    var temp_lic =  lic.slice(dot+1,lend)
+    if(dot!=-1)
+    {
+        var temp_lic =  lic.slice(dot+1,lend)
+    }
+    else
+    {
+        temp_lic=lic
+    }
+
     for(var i=0;i<lend;i++)
     {
         if(temp_lic[i]!="0")
