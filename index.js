@@ -69,7 +69,7 @@ app.post("/upload", function (req, res) {
     upload_file.mv("uploads/" + "input.xlsx", function (err) {
         if (err) return res.status(500).send(err);
         const directoryPath = path.join(__dirname, "uploads");
-        /*fs.readdir(directoryPath, function (err, files) {
+        fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
                 return console.log("Unable to scan directory:" + err);
@@ -89,7 +89,7 @@ app.post("/upload", function (req, res) {
                 }
 
             });
-        });*/
+        });
 
         main_controller();
 
