@@ -117,8 +117,6 @@ function main_controller()
     var sheet_name_list_op = workbook_op.SheetNames;
     var dict = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
 
-
-
     var newData = new Array();
 
     // every for reinit remember
@@ -129,6 +127,10 @@ function main_controller()
             if (data[i].hasOwnProperty(key)) {           
                 //console.log(key, data[0][key]);
                 dict[0][key] = data[i][key]
+
+                //var state =data[i]["state license state from application"]
+                //var license_num =data[i]["state license state from application"]
+
             }
         }
         newData.push(dict[0])

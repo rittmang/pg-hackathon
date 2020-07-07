@@ -23,7 +23,20 @@ router.get('/', function(req,res){
 
 router.get('/:lic_id', function(req,res){
     var is_api = req.query.is_api;
-    Colorado.getColoradoByLICId(req.params.lic_id, function(err, colorado) {
+    var lic = req.params.lic_id
+    var lend = lic.length
+    var dot = lic.indexOf(".")
+    var temp_lic =  lic.slice(dot+1,lend)
+    for(var i=0;i<lend;i++)
+    {
+        if(temp_lic[i]!="0")
+        {
+            break;
+        }
+    }
+    temp_lic =  temp_lic.slice(i,lend)
+    //console.log("temp",lic,temp_lic,i)
+    Colorado.getColoradoByLICId(temp_lic, function(err, colorado) {
         if(err || colorado == null){
             console.log(err);
             res.send(404);
