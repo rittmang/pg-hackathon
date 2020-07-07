@@ -15,14 +15,14 @@ router.get('/:lic_id',  function(req, res){
 
     (async (lno = `${lic_id}`) => {
         console.log(lno);
-        const browser = await puppeteer.launch({headless: true});
+        const browser = await puppeteer.launch({headless: true,args:['--no-sandbox']});
         try{
             const page = await browser.newPage();
 
             await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: './excel'});
             await page.goto('https://azbodprod.glsuite.us/GLSuiteWeb/clients/azbod/public/WebVerificationSearch.aspx');
             await page.click('input[id="ContentPlaceHolder1_rbDentist"]');
-            await page.$eval('input[id="ContentPlaceHolder1_tbProLicNum"]', (el, value) => el.value = value, lno);
+            await page.$eval('input[id="ContentPlaceHolder1_tbProLicNum"]', (el, value) => el.value = value, lic_id);
             await page.click('input[id="ContentPlaceHolder1_btnPro"]');
             await page.waitFor(10000);
 
