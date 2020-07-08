@@ -5,15 +5,14 @@ var fs = require('fs');
 
 const router = express.Router();
 router.use(function (req,res,next){
-    console.log('Ohio Router');
+    console.log('Oregon Router');
     next();
 })
 
 router.get('/:lic_id',  function(req, res){
     var lic_id = req.params.lic_id;
     var is_api = req.query.is_api;
-    
-    var fs = require('fs');
+
     var options = {
     'method': 'GET',
     'url': 'https://lookup.oregondentistry.org/searchdir.asp?searchby=licno&searchfor='+lic_id+'&stateselect=none&lictype=Dentist&Submit=Search',

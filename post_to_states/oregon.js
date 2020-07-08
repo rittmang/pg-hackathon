@@ -34,5 +34,5 @@ request(options, function (error, response) {
     {
         var disi = "Yes"
     }
-    console.log(disi)
+    var result = {"Name": name, "Status": status, "ExpiryDate": expDate, "DisciplinaryAction": disi}
 });
