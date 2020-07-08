@@ -16,6 +16,7 @@ const florida = require('./florida');
 const oregon = require('./oregon');
 const kansas = require('./kansas');
 const northcarolina = require('./northcarolina');
+const louisiana = require('./louisiana');
 
 router.use('/texas', texas);
 router.use('/pennstate', penn);
@@ -32,7 +33,7 @@ router.use('/florida', florida);
 router.use('/oregon', oregon);
 router.use('/kansas', kansas);
 router.use('/northcarolina', northcarolina);
-
+router.use('/louisiana', louisiana);
 
 
 router.use(function (req,res,next){
