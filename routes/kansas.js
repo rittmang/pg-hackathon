@@ -42,7 +42,7 @@ router.get('/:lic_id',  function(req, res){
           });
           
         var $ = cheerio.load(response.body);
-        var name = $('#global-content > table > tbody > tr:nth-child(2) > td:nth-child(2)').text()
+        var name = $('#global-content > table > tbody > tr:nth-child(2) > td:nth-child(2)').text() +" "+ $('#global-content > table > tbody > tr:nth-child(4) > td:nth-child(2)')
         var status = $('#global-content > table > tbody > tr:nth-child(12) > td:nth-child(2)').text()
         var expDate = $('#global-content > table > tbody > tr:nth-child(10) > td:nth-child(2)').text()
         
