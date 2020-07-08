@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
 var TelegramBot = require('telegrambot');
+var request = require('request');
+var syrequest = require('sync-request');
 
 const { Http2ServerRequest } = require("http2");
 const { export_to_mongo } = require("./excel/texas");
@@ -69,7 +71,7 @@ app.post("/upload", function (req, res) {
     upload_file.mv("uploads/" + "input.xlsx", function (err) {
         if (err) return res.status(500).send(err);
         const directoryPath = path.join(__dirname, "uploads");
-        fs.readdir(directoryPath, function (err, files) {
+        /*fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
                 return console.log("Unable to scan directory:" + err);
@@ -89,7 +91,7 @@ app.post("/upload", function (req, res) {
                 }
 
             });
-        });
+        });*/
 
         main_controller();
 
@@ -127,11 +129,33 @@ function main_controller()
             if (data[i].hasOwnProperty(key)) {           
                 //console.log(key, data[0][key]);
                 dict[0][key] = data[i][key]
-
-                //var state =data[i]["state license state from application"]
-                //var license_num =data[i]["state license state from application"]
-
             }
+        }
+
+
+        var state =data[i]["state license state from application"]
+        var license_num =data[i]["state license number from application"]
+
+        if (state != undefined || license_num != undefined)
+        {
+            console.log(state,license_num)
+            var res = syrequest('GET', 'http://pg-hackathon.herokuapp.com/api?state='+state+'&lic_num='+license_num);
+            var res_dict = JSON.parse(res.getBody('utf8'));
+            //console.log(res_dict["Name"])
+            //console.log(res_dict["Status"])
+            //console.log(res_dict["ExpiryDate"])
+            //console.log(res_dict["DisciplinaryAction"])
+            dict[0]["name on state license"] = res_dict["Name"]
+            dict[0]["expiration date"] = res_dict["ExpiryDate"]
+            dict[0]["status"] = res_dict["Status"]
+            dict[0]["discipline indicator"] = res_dict["DisciplinaryAction"]
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = mm + '/' + dd + '/' + yyyy;
+            dict[0]["verified date"] = today
         }
         newData.push(dict[0])
     //console.log(newData)
