@@ -1,5 +1,21 @@
 <%- include ../partials/header -%>
 <%- include ../partials/nav -%>
+<style>
+    .tablem {
+        display: table;
+        border: 1px solid black;
+        width: 100%;
+    }
+    .rowm {
+        display: table-row;
+        border: 1px solid black;
+    }
+    .cellm {
+        display: table-cell;
+        border: 1px solid black;
+        ;
+    }
+</style>
 <%
 
 console.log(listPeople)
@@ -69,6 +85,7 @@ function returnColor(item)
                             <th scope="col">NPI Verification</th>
                             <th scope="col">Malpractice</th>
                             <th scope="col">Specialty Certificate</th>
+                            <th>Mail Template</th>
                             
                         </tr>
                         </thead>
@@ -135,7 +152,109 @@ function returnColor(item)
                                         <% } else if ((listPeople[i]["Specialty Education Certificate"]) == "Error") { %>
                                             <td class="align-middle" style="color: red;"><b><%= (listPeople[i]["Specialty Education Certificate"])   %></b></td>
                                         <% } %>
-                                        
+                                        <td><button class="btn btn-primary" data-toggle="modal" data-target="#mailModal">Generate</button></td>
+                                        <div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="mailModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="mailModalLabel">Mail Template</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="tablem">
+                                                            <div class="rowm">
+                                                                <div class="cellm">1. Complete App Recd:</div>
+                                                                <div class="cellm">Date Clean App Received or n/a for Add’l Loc request</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">2. Provider NPI:</div>
+                                                                <div class="cellm">Individual</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">3. Provider Gender:</div>
+                                                                <div class="cellm">M/F</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">4. Location(s) email(s):</div>
+                                                                <div class="cellm">M/F</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">5. Directory Address(es)/TIN(s):</div>
+                                                                <div class="cellm">TIN:    Address:</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">6. Claims:</div>
+                                                                <div class="cellm">TIN ADDRESSES for claims only (possible see roster)</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">7. Dir opt-out flag:</div>
+                                                                <div class="cellm">No – system sends letter / Yes – Yes – LgGrp manages mass compliance notices</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">8. Effective Date:</div>
+                                                                <div class="cellm">Date of Entry or Doc future start date</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">9. Payee Address:</div>
+                                                                <div class="cellm">NPI 2:    Address:</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">10. Network/Fee Sched:</div>
+                                                                <div class="cellm">Example: 37601-204</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">11. Contract ID:</div>
+                                                                <div class="cellm">Example: 4</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">12. Agreement:</div>
+                                                                <div class="cellm">IndAgreeAttached, GrpAgreeAttached, or GrpAgreeOnFile</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">13. Execute Agreement:</div>
+                                                                <div class="cellm">Yes/No</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">14. Welcome Kit:</div>
+                                                                <div class="cellm">Yes/No</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">15. Corresp email:</div>
+                                                                <div class="cellm"></div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">16. Handicap Accessible:</div>
+                                                                <div class="cellm">Yes/No</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">17. Other Information:</div>
+                                                                <div class="cellm">Additional notes (Example: DEA pending)</div>
+                                                            </div>
+                                                            <div class="rowm">
+                                                                <div class="cellm">
+                                                                    <ol>
+                                                                        <li>DSO name</li>
+                                                                        <li>Doc already par with DSO</li>
+                                                                    </ol>
+                                                                </div>
+                                                                <div class="cellm">
+                                                                    <ol>
+                                                                        <li>Yes/No</li>
+                                                                        <li>Yes/No</li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" onclick="copyContents()">Copy Contents</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                 <% } %>
                             </tbody>
