@@ -93,10 +93,10 @@ app.post("/upload", function (req, res) {
             });
         });
 
-        var listPeople=main_controller();
+        //var listPeople=main_controller();
         
-        //res.redirect("/statusMany");
-        res.render("pages/statusMany", {"listPeople":listPeople});
+        res.redirect("/statusMany");
+        //res.render("pages/statusMany", {"listPeople":listPeople});
         
     });
     }
