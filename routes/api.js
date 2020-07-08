@@ -36,8 +36,8 @@ router.get('/', function (req,res) {
     else {
         var is_api = true;
         var result = [state, license_num];
-        var license_url = "http://localhost:5000/api/license/" + state + "/" + license_num + "?is_api=" + is_api;
-        //var license_url = "http://pg-hackathon.herokuapp.com/api/license/" + state + "/" + license_num + "?is_api=" + is_api;
+        //var license_url = "http://localhost:5000/api/license/" + state + "/" + license_num + "?is_api=" + is_api;
+        var license_url = "http://pg-hackathon.herokuapp.com/api/license/" + state + "/" + license_num + "?is_api=" + is_api;
         //var npi_url = "http://localhost:5000/api/npi/" + npi + "?is_api="+is_api;
         request.get(license_url, function (error, response, body) {
             if(error){
