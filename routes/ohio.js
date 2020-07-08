@@ -52,10 +52,10 @@ router.get('/:lic_id',  function(req, res){
                 var status = data.MUSW__Status__c;
                 var boardAction = data.Board_Action__c;
 
-                console.log("Name: ", name);
-                console.log("Expiry Date: ", expDate1);
-                console.log("Status: ", status);
-                console.log("Board Action: ", boardAction);
+                //console.log("Name: ", name);
+                //console.log("Expiry Date: ", expDate1);
+                //console.log("Status: ", status);
+                //console.log("Board Action: ", boardAction);
                 //res.send(data);
                 var result = {
                     "Name": name,

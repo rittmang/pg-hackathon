@@ -6,8 +6,7 @@ const fileUpload = require("express-fileupload");
 const fs = require("fs");
 var TelegramBot = require('telegrambot');
 var request = require('request');
-var syrequest = require('sync-request');
-
+var rp = require('request-promise');
 const { Http2ServerRequest } = require("http2");
 const { export_to_mongo } = require("./excel/texas");
 const PORT = process.env.PORT || 5000;
@@ -68,10 +67,10 @@ app.post("/upload", function (req, res) {
     else
     {
     // Use the mv() method to place the file somewhere on your server
-    upload_file.mv("uploads/" + "input.xlsx", function (err) {
+    upload_file.mv("uploads/" + "input.xlsx", async function (err) {
         if (err) return res.status(500).send(err);
         const directoryPath = path.join(__dirname, "uploads");
-        fs.readdir(directoryPath, function (err, files) {
+        /*fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
                 return console.log("Unable to scan directory:" + err);
@@ -91,12 +90,18 @@ app.post("/upload", function (req, res) {
                 }
 
             });
-        });
+        });*/
 
-        var listPeople=main_controller();
+        //var listPeople=main_controller();
+
+        
+        var list_p = await main_2()
+        res.render("pages/statusMany", {"listPeople":list_p});
+        //main_2.then(alert)
+        //res.send(await Promise.all(promiseArray));
         
         //res.redirect("/statusMany");
-        res.render("pages/statusMany", {"listPeople":listPeople});
+        
         
     });
     }
@@ -109,8 +114,10 @@ app.get('/download', function(req, res){
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-function main_controller()
+
+async function main_2()
 {
+    var listPeople = [];
     if (typeof require !== 'undefined') XLSX = require('xlsx');
     var workbook = XLSX.readFile('./uploads/input.xlsx', { type: "array" });
     var sheet_name_list = workbook.SheetNames;
@@ -122,7 +129,7 @@ function main_controller()
     var dict = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
 
     var newData = new Array();
-    var listPeople = [];
+    
     // every for reinit remember
     for (var i=0; i<data.length;i++)
     {
@@ -154,13 +161,11 @@ function main_controller()
 
         if (state != undefined || license_num != undefined)
         {
-            console.log(state,license_num)
-            var res = syrequest('GET', 'http://pg-hackathon.herokuapp.com/api?state='+state+'&lic_num='+license_num);
-            var res_dict = JSON.parse(res.getBody('utf8'));
-            //console.log(res_dict["Name"])
-            //console.log(res_dict["Status"])
-            //console.log(res_dict["ExpiryDate"])
-            //console.log(res_dict["DisciplinaryAction"])
+            //license_url = 'http://localhost:5000/api/?state='+state+'&lic_num='+license_num
+            license_url = 'http://pg-hackathon.herokuapp.com/api?state='+state+'&lic_num='+license_num
+            const promise = await rp(license_url);
+            //promises.push(promise);
+            var res_dict =JSON.parse(promise)
             dict[0]["name on state license"] = res_dict["Name"]
             dict[0]["expiration date"] = res_dict["ExpiryDate"]
             dict[0]["status"] = res_dict["Status"]
@@ -174,12 +179,7 @@ function main_controller()
             dict[0]["verified date"] = today
         }
         newData.push(dict[0])
-    //console.log(newData)
     }
-    //for should end here
-
-    //console.log("mydata ::", newData[0]);
-
     var newWB = XLSX.utils.book_new()
     var newWS = XLSX.utils.json_to_sheet(newData)
     XLSX.utils.book_append_sheet(newWB,newWS,"jsonToXl")
@@ -187,8 +187,5 @@ function main_controller()
 
     return listPeople
     
-    //book_append_sheet(workbook_op,sheet_name_list_op[0],"jsonToXl")
-    //sheet_name_list_op[0].push(newData)
-    //XLSX.writeFile(workbook_op,"./uploads/out.xlsx")
-
 }
+
