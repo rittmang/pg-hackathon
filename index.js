@@ -93,15 +93,17 @@ app.post("/upload", function (req, res) {
             });
         });*/
 
-        main_controller();
-
-        res.redirect("/statusMany");
+        var listPeople=main_controller();
+        
+        //res.redirect("/statusMany");
+        res.render("pages/statusMany", {"listPeople":listPeople});
+        
     });
     }
 });
 
 app.get('/download', function(req, res){
-    const file = `${__dirname}/uploads/output_excel.xlsx`;
+    const file = `${__dirname}/uploads/output.xlsx`;
     res.download(file); // Set disposition and send it.
 });
 
@@ -120,7 +122,7 @@ function main_controller()
     var dict = XLSX.utils.sheet_to_json(workbook_op.Sheets[sheet_name_list_op[0]]);
 
     var newData = new Array();
-
+    var listPeople = [];
     // every for reinit remember
     for (var i=0; i<data.length;i++)
     {
@@ -131,8 +133,22 @@ function main_controller()
                 dict[0][key] = data[i][key]
             }
         }
+        //code to send to status many
+        var VerificationList = {
+            "Name " : data[i]["first name"]+" "+data[i]["last name"],
+            "State " : data[i]["state license state from application"],
+            "Application Id" : data[i]["app id"],
+            "State License": "Verified",
+            "DEA Permit" : "Verified",
+            "OIG/DHHS" : "Manual",
+            "NPDB Lookup" : "Verified",
+            "NPI Verification" : "Manual",
+            "Malpractice " : "Verified",
+            "Specialty Education Certificate" : "Manual",
+        };
+        listPeople.push(VerificationList)
 
-
+        //code to send end
         var state =data[i]["state license state from application"]
         var license_num =data[i]["state license number from application"]
 
@@ -169,6 +185,8 @@ function main_controller()
     XLSX.utils.book_append_sheet(newWB,newWS,"jsonToXl")
     XLSX.writeFile(newWB,"./uploads/output.xlsx")
 
+    return listPeople
+    
     //book_append_sheet(workbook_op,sheet_name_list_op[0],"jsonToXl")
     //sheet_name_list_op[0].push(newData)
     //XLSX.writeFile(workbook_op,"./uploads/out.xlsx")
