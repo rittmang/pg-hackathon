@@ -5,11 +5,13 @@ const router = express.Router();
 
 const license = require('./license');
 const npi = require('./npi');
+const oig = require('./oig');
 var async = require('async');
 
 router.use('/license', license);
 ///api/license
 router.use('/npi', npi);
+router.use('/oig', oig);
 ///api/npi
 
 router.use(function (req,res,next){
