@@ -145,11 +145,11 @@ async function main_2()
             "State " : data[i]["state license state from application"],
             "Application Id" : data[i]["app id"],
             "State License": "Verified",
-            "DEA Permit" : "Verified",
-            "OIG/DHHS" : "Manual",
-            "NPDB Lookup" : "Verified",
-            "NPI Verification" : "Manual",
-            "Malpractice " : "Verified",
+            "DEA Permit" : "Manual",
+            "OIG/DHHS" : "Verified",
+            "NPDB Lookup" : "Manual",
+            "NPI Verification" : "Verified",
+            "Malpractice " : "Manual",
             "Specialty Education Certificate" : "Manual",
         };
         listPeople.push(VerificationList)
