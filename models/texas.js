@@ -119,7 +119,7 @@ module.exports.getTexas = function(callback,limit){
 
 module.exports.getTexasByLICId = function(lic_id,callback){
     console.log("In model function");
-    Texas.findOne({'LIC_ID': lic_id},callback);
+    Texas.findOne({'LIC_NBR': lic_id},callback);
 }
 
 /*module.exports.getTexasByName = function(fname,lname,callback){
