@@ -56,6 +56,12 @@ app.post("/upload", function (req, res) {
 
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let upload_file = req.files.upload_file;
+    let body = req.body;
+    if (body['wantMail'] != 0){
+        var subject = body['subject']
+        console.log(subject);
+    }
+    console.log(body);
     var name = upload_file.name;
     if (name.search("xlsx") == -1){
         
@@ -70,7 +76,7 @@ app.post("/upload", function (req, res) {
     upload_file.mv("uploads/" + "input.xlsx", async function (err) {
         if (err) return res.status(500).send(err);
         const directoryPath = path.join(__dirname, "uploads");
-        fs.readdir(directoryPath, function (err, files) {
+        /*fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
                 return console.log("Unable to scan directory:" + err);
@@ -91,11 +97,11 @@ app.post("/upload", function (req, res) {
 
             });
         });
-
+*/
         //var listPeople=main_controller();
 
         
-        var list_p = await main_2()
+        var list_p = await main_2(subject)
         res.render("pages/statusMany", {"listPeople":list_p});
         //main_2.then(alert)
         //res.send(await Promise.all(promiseArray));
@@ -114,7 +120,7 @@ app.get('/download', function(req, res){
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
-async function main_2()
+async function main_2(subject)
 {
     var listPeople = [];
     if (typeof require !== 'undefined') XLSX = require('xlsx');
@@ -195,7 +201,7 @@ async function main_2()
     XLSX.utils.book_append_sheet(newWB,newWS,"jsonToXl")
     XLSX.writeFile(newWB,"./uploads/output.xlsx")
 
-    /*var nodemailer = require('nodemailer');
+    var nodemailer = require('nodemailer');
 
         var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -210,8 +216,8 @@ async function main_2()
         var mailOptions = {
         from: 'loadingin12345@gmail.com',
         to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu',
-        subject: 'Sending Email using Node.js',
-        text: 'Bazinga!',
+        subject: subject,
+        text: 'Dental Credentialing',
         attachments: attachments
         };
 
@@ -222,7 +228,7 @@ async function main_2()
         } else {
             console.log('Email sent: ' + info.response);
         }
-        });*/
+        });
 
     return listPeople
     

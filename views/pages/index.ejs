@@ -47,9 +47,16 @@
           
           <div id="A">
             <br>
-            <input class="form-control" type="file" style="height:45px;" name="upload_file" />
-            <input type="hidden" name="file_type" value="pdf" />
+            <input class="form-control" type="file" style="height:60%;" name="upload_file" />
             <br>
+            <input type="text" name = "subject" class = "form-control" placeholder="Enter Mail Subject...."><br>
+            <input id="check_mail_hidden" type = "hidden" value="0" name="wantMail">
+            <input id="check_mail" type = "checkbox" value="1" name="wantMail"> Send me an email with the output. <br>
+            <script>
+              if(document.getElementById("check_mail").checked) {
+                document.getElementById('check_mail_hidden').disabled = true;
+              }
+            </script>
             <button class="btn btn-primary mt-3" type='submit' value='upload' name = "authenticate">
               Authenticate
             </button>
