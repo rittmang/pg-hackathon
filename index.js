@@ -57,10 +57,11 @@ app.post("/upload", function (req, res) {
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let upload_file = req.files.upload_file;
     let body = req.body;
+    var subject = null;
     if (body['wantMail'] != 0){
-        var subject = body['subject']
-        console.log(subject);
+        subject = body['subject']
     }
+    console.log(subject);
     console.log(body);
     var name = upload_file.name;
     if (name.search("xlsx") == -1){
@@ -76,7 +77,7 @@ app.post("/upload", function (req, res) {
     upload_file.mv("uploads/" + "input.xlsx", async function (err) {
         if (err) return res.status(500).send(err);
         const directoryPath = path.join(__dirname, "uploads");
-        /*fs.readdir(directoryPath, function (err, files) {
+        fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
                 return console.log("Unable to scan directory:" + err);
@@ -97,7 +98,7 @@ app.post("/upload", function (req, res) {
 
             });
         });
-*/
+
         //var listPeople=main_controller();
 
         
@@ -200,35 +201,36 @@ async function main_2(subject)
     var newWS = XLSX.utils.json_to_sheet(newData)
     XLSX.utils.book_append_sheet(newWB,newWS,"jsonToXl")
     XLSX.writeFile(newWB,"./uploads/output.xlsx")
-
-    var nodemailer = require('nodemailer');
+    if(subject != null) {
+        var nodemailer = require('nodemailer');
 
         var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'loadingin12345@gmail.com',
-            pass: 'Dheeraj@123'
-        }
+            service: 'gmail',
+            auth: {
+                user: 'loadingin12345@gmail.com',
+                pass: 'Dheeraj@123'
+            }
         });
 
-        var attachments = [{ filename: 'output.xlsx', path: __dirname + '/uploads/output.xlsx'}];
+        var attachments = [{filename: 'output.xlsx', path: __dirname + '/uploads/output.xlsx'}];
 
         var mailOptions = {
-        from: 'loadingin12345@gmail.com',
-        to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu',
-        subject: subject,
-        text: 'Dental Credentialing',
-        attachments: attachments
+            from: 'loadingin12345@gmail.com',
+            to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu, Parakh.Ajinkya@principal.com',
+            subject: subject,
+            text: 'Dental Credentialing',
+            attachments: attachments
         };
 
 
-        transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
         });
+    }
 
     return listPeople
     
