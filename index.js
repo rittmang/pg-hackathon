@@ -159,7 +159,7 @@ async function main_2(subject)
             "Malpractice " : "Manual",
             "Specialty Education Certificate" : "Manual",
         };
-        listPeople.push(VerificationList)
+        
 
         //code to send end
         var state =data[i]["state license state from application"]
@@ -169,20 +169,27 @@ async function main_2(subject)
         {
             //license_url = 'http://localhost:5000/api/?state='+state+'&lic_num='+license_num
             license_url = 'http://pg-hackathon.herokuapp.com/api?state='+state+'&lic_num='+license_num
-            const promise = await rp(license_url);
-            //promises.push(promise);
-            var res_dict =JSON.parse(promise)
-            dict[0]["name on state license"] = res_dict["Name"]
-            dict[0]["expiration date"] = res_dict["ExpiryDate"]
-            dict[0]["status"] = res_dict["Status"]
-            dict[0]["discipline indicator"] = res_dict["DisciplinaryAction"]
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
+            try{
+                const promise = await rp(license_url);
+                //promises.push(promise);
+                var res_dict =JSON.parse(promise)
+                dict[0]["name on state license"] = res_dict["Name"]
+                dict[0]["expiration date"] = res_dict["ExpiryDate"]
+                dict[0]["status"] = res_dict["Status"]
+                dict[0]["discipline indicator"] = res_dict["DisciplinaryAction"]
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
 
-            today = mm + '/' + dd + '/' + yyyy;
-            dict[0]["verified date"] = today
+                today = mm + '/' + dd + '/' + yyyy;
+                dict[0]["verified date"] = today
+            }
+            catch
+            {
+                VerificationList["State License"] = "Error"
+            }
+            
         }
         npi_url = "http://pg-hackathon.herokuapp.com/api/npi/" + data[i]["npi number on application"]
         const npi_promise = await rp(npi_url);
@@ -196,6 +203,7 @@ async function main_2(subject)
         dict[0]["oig verified date"] = today
         
         newData.push(dict[0])
+        listPeople.push(VerificationList)
     }
     var newWB = XLSX.utils.book_new()
     var newWS = XLSX.utils.json_to_sheet(newData)
