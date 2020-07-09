@@ -163,7 +163,7 @@ function returnColor(item)
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <div class="tablem">
+                                                        <div id="tableId" class="tablem">
                                                             <div class="rowm">
                                                                 <div class="cellm">1. Complete App Recd:</div>
                                                                 <div class="cellm">Date Clean App Received or n/a for Add’l Loc request</div>
@@ -250,7 +250,31 @@ function returnColor(item)
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" onclick="copyContents()">Copy Contents</button>
+                                                        <button type="button" class="btn btn-primary" onclick="selectElementContents( document.getElementById('tableId'));">Copy Contents</button>
+                                                        <script>
+                                                            function selectElementContents(el) {
+                                                                var body = document.body, range, sel;
+                                                                if (document.createRange && window.getSelection) {
+                                                                    range = document.createRange();
+                                                                    sel = window.getSelection();
+                                                                    sel.removeAllRanges();
+                                                                    try {
+                                                                        range.selectNodeContents(el);
+                                                                        sel.addRange(range);
+                                                                    } catch (e) {
+                                                                        range.selectNode(el);
+                                                                        sel.addRange(range);
+                                                                    }
+                                                                    document.execCommand("copy");
+
+                                                                } else if (body.createTextRange) {
+                                                                    range = body.createTextRange();
+                                                                    range.moveToElementText(el);
+                                                                    range.select();
+                                                                    range.execCommand("Copy");
+                                                                }
+                                                            }
+                                                        </script>
                                                     </div>
                                                 </div>
                                             </div>
