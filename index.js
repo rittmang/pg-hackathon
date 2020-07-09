@@ -100,8 +100,7 @@ app.post("/upload", function (req, res) {
         //main_2.then(alert)
         //res.send(await Promise.all(promiseArray));
         
-        //res.redirect("/statusMany");
-        
+        //res.redirect("/statusMany");        
         
     });
     }
@@ -178,12 +177,52 @@ async function main_2()
             today = mm + '/' + dd + '/' + yyyy;
             dict[0]["verified date"] = today
         }
+        npi_url = "http://pg-hackathon.herokuapp.com/api/npi/" + data[i]["npi number on application"]
+        const npi_promise = await rp(npi_url);
+        //var res_dict_npi =JSON.parse(npi_promise)
+        dict[0][" npi- dentists full name"] = npi_promise
+
+        oig_url = "http://pg-hackathon.herokuapp.com/api/oig?first_name="+data[i]["first name"]+"&last_name="+data[i]["last name"]+ "&is_api=true"
+        const oig_promise = await rp(oig_url);
+        var res_dict_oig =JSON.parse(oig_promise)
+        dict[0]["oig"] = res_dict_oig["Result"]
+        dict[0]["oig verified date"] = today
+        
         newData.push(dict[0])
     }
     var newWB = XLSX.utils.book_new()
     var newWS = XLSX.utils.json_to_sheet(newData)
     XLSX.utils.book_append_sheet(newWB,newWS,"jsonToXl")
     XLSX.writeFile(newWB,"./uploads/output.xlsx")
+
+    /*var nodemailer = require('nodemailer');
+
+        var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'loadingin12345@gmail.com',
+            pass: 'Dheeraj@123'
+        }
+        });
+
+        var attachments = [{ filename: 'output.xlsx', path: __dirname + '/uploads/output.xlsx'}];
+
+        var mailOptions = {
+        from: 'loadingin12345@gmail.com',
+        to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu',
+        subject: 'Sending Email using Node.js',
+        text: 'Bazinga!',
+        attachments: attachments
+        };
+
+
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+        });*/
 
     return listPeople
     

@@ -52,7 +52,7 @@ router.get('/:npi_num', function(req,res){
         last_name:"",
         organization_name:"",
         address_purpose:"",
-        city:"baltimore",
+        city:"",
         state:"",
         postal_code:"",
         country_code:"",
@@ -71,14 +71,42 @@ router.get('/:npi_num', function(req,res){
         url: url,
         method: "GET",
     }, function (error, response, body){
-        console.log(body);
-        console.log(is_api);
-        console.log(typeof is_api);
+        //console.log(result);
+        var temp = JSON.parse(body);
+        console.log(temp["results"][0]["basic"]["first_name"])
+        if (temp["results"][0]["basic"]["first_name"] == undefined)
+        {
+            var first_name = ""
+        }
+        else
+        {
+            var first_name = temp["results"][0]["basic"]["first_name"] 
+        }
+        if (temp["results"][0]["basic"]["middle_name"] == undefined)
+        {
+            var middle_name = ""
+        }
+        else
+        {
+            var middle_name = temp["results"][0]["basic"]["middle_name"] 
+        }
+        if (temp["results"][0]["basic"]["last_name"]  == undefined)
+        {
+            var last_name = ""
+        }
+        else
+        {
+            var last_name = temp["results"][0]["basic"]["last_name"] 
+        }
+
+
         if(is_api == "true"){
-            res.send('Verified'); //Test
+            var name = first_name + " " + middle_name + " " + last_name
+            res.send(name); //Test
         }
         else{
-            res.send(body); //Test
+            var name = first_name + " " + middle_name + " " + last_name
+            res.send(name); //Test
         }
 
     });

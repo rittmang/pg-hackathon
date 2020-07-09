@@ -21,6 +21,7 @@
     "express-fileupload": "^1.1.7-alpha.3",
     "https": "^1.0.0",
     "mongoose": "^5.9.20",
+    "nodemailer": "^6.4.10",
     "pg": "^8.2.1",
     "puppeteer": "^4.0.1",
     "request": "^2.88.2",
