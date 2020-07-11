@@ -60,7 +60,7 @@ router.get('/:lic_id',  function(req, res){
                         throw new Error(error);
                     }
                     var temp1 = JSON.parse(response.body);
-                    var name = temp1["FirstName"] + temp1["LastName"]
+                    var name = temp1["FirstName"] + " " + temp1["LastName"];
                     var status = temp1["Status"]
                     var expiry = temp1["ExpiryDate"]
                     if (temp1["DisciplinaryActionDetails"].length != 0) {

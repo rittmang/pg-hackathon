@@ -59,8 +59,8 @@ router.get('/:lic_id', function(req,res){
 
             var result = {
                 "Name": colorado['FormattedName'],
-                "Status": colorado['LicenseExpirationDate'],
-                "ExpiryDate": colorado['LicenseStatusDescription'],
+                "Status": colorado['LicenseStatusDescription'],
+                "ExpiryDate": colorado['LicenseExpirationDate'],
                 "DisciplinaryAction": disc
             };
             if (is_api == "true") {

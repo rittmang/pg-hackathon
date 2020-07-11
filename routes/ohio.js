@@ -48,7 +48,7 @@ router.get('/:lic_id',  function(req, res){
                 var data = temp[1].result[0].license;
                 var name = data.Applicant_Full_Name__c;
                 var expDate = new Date(data.MUSW__Expiration_Date__c);
-                var expDate1 = expDate.getDate() + "-" + expDate.getMonth() + "-" + expDate.getFullYear();
+                var expDate1 = expDate.getDate() + "-" + (expDate.getMonth() + 1) + "-" + expDate.getFullYear();
                 var status = data.MUSW__Status__c;
                 var boardAction = data.Board_Action__c;
 
