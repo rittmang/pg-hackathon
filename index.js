@@ -220,7 +220,7 @@ async function main_2(subject)
             }
         });
 
-        var attachments = [{filename: 'output.xlsx', path: __dirname + '/uploads/output.xlsx'}];
+        var attachments = [{filename: 'output_file.xlsx', path: __dirname + '/uploads/output_file.xlsx'}];
 
         var mailOptions = {
             from: 'imaginehackathon@gmail.com',
