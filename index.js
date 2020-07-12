@@ -224,7 +224,7 @@ async function main_2(subject)
 
         var mailOptions = {
             from: 'imaginehackathon@gmail.com',
-            to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu , ',
+            to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu , imaginehackathon@gmail.com',
             subject: subject,
             text: 'Dental Credentialing',
             attachments: attachments
