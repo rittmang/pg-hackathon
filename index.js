@@ -223,8 +223,8 @@ async function main_2(subject)
         var attachments = [{filename: 'output.xlsx', path: __dirname + '/uploads/output.xlsx'}];
 
         var mailOptions = {
-            from: 'loadingin12345@gmail.com',
-            to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu',
+            from: 'imaginehackathon@gmail.com',
+            to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu , imaginehackathon@gmail.com',
             subject: subject,
             text: 'Dental Credentialing',
             attachments: attachments
