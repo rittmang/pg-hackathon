@@ -76,7 +76,7 @@ app.post("/upload", function (req, res) {
     // Use the mv() method to place the file somewhere on your server
     upload_file.mv("uploads/" + "input.xlsx", async function (err) {
         if (err) return res.status(500).send(err);
-        const directoryPath = path.join(__dirname, "uploads");
+        /*const directoryPath = path.join(__dirname, "uploads");
         fs.readdir(directoryPath, function (err, files) {
             //handling error
             if (err) {
@@ -97,7 +97,7 @@ app.post("/upload", function (req, res) {
                 }
 
             });
-        });
+        });*/
 
         //var listPeople=main_controller();
 
@@ -114,7 +114,7 @@ app.post("/upload", function (req, res) {
 });
 
 app.get('/download', function(req, res){
-    const file = `${__dirname}/uploads/output.xlsx`;
+    const file = `${__dirname}/uploads/output_file.xlsx`;
     res.download(file); // Set disposition and send it.
 });
 
@@ -170,7 +170,7 @@ async function main_2(subject)
             //license_url = 'http://localhost:5000/api/?state='+state+'&lic_num='+license_num
             license_url = 'http://pg-hackathon.herokuapp.com/api?state='+state+'&lic_num='+license_num
             try{
-                const promise = await rp(license_url);
+                const promise = await rp(license_url).catch(console.log("Error"));
                 //promises.push(promise);
                 var res_dict =JSON.parse(promise)
                 dict[0]["name on state license"] = res_dict["Name"]
@@ -192,12 +192,12 @@ async function main_2(subject)
             
         }
         npi_url = "http://pg-hackathon.herokuapp.com/api/npi/" + data[i]["npi number on application"]
-        const npi_promise = await rp(npi_url);
+        //const npi_promise = await rp(npi_url).catch(console.log("Error"));
         //var res_dict_npi =JSON.parse(npi_promise)
-        dict[0][" npi- dentists full name"] = npi_promise
+        //dict[0][" npi- dentists full name"] = npi_promise
 
         oig_url = "http://pg-hackathon.herokuapp.com/api/oig?first_name="+data[i]["first name"]+"&last_name="+data[i]["last name"]+ "&is_api=true"
-        const oig_promise = await rp(oig_url);
+        const oig_promise = await rp(oig_url).catch(console.log("Error"));
         var res_dict_oig =JSON.parse(oig_promise)
         dict[0]["oig"] = res_dict_oig["Result"]
         dict[0]["oig verified date"] = today
