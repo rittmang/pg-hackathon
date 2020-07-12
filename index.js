@@ -215,7 +215,7 @@ async function main_2(subject)
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'loadingin12345@gmail.com',
+                user: 'imaginehackathon@gmail.com',
                 pass: 'Dheeraj@123'
             }
         });
@@ -224,7 +224,7 @@ async function main_2(subject)
 
         var mailOptions = {
             from: 'imaginehackathon@gmail.com',
-            to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu , imaginehackathon@gmail.com',
+            to: 'dkrocksup@gmail.com , indira.pimpalkhare@gmail.com , deveshbhogre@thescriptgroup.in , ritomgupta@zonc.eu , ',
             subject: subject,
             text: 'Dental Credentialing',
             attachments: attachments
