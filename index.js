@@ -114,7 +114,7 @@ app.post("/upload", function (req, res) {
 });
 
 app.get('/download', function(req, res){
-    const file = `${__dirname}/uploads/output_file.xlsx`;
+    const file = `${__dirname}/uploads/output.xlsx`;
     res.download(file); // Set disposition and send it.
 });
 
@@ -170,7 +170,7 @@ async function main_2(subject)
             //license_url = 'http://localhost:5000/api/?state='+state+'&lic_num='+license_num
             license_url = 'http://pg-hackathon.herokuapp.com/api?state='+state+'&lic_num='+license_num
             try{
-                const promise = await rp(license_url).catch(console.log("Error"));
+                const promise = await rp(license_url).catch(console.log("license"));
                 //promises.push(promise);
                 var res_dict =JSON.parse(promise)
                 dict[0]["name on state license"] = res_dict["Name"]
@@ -187,17 +187,25 @@ async function main_2(subject)
             }
             catch
             {
-                VerificationList["State License"] = "Error"
+                VerificationList["State License"] = "License"
             }
             
         }
         npi_url = "http://pg-hackathon.herokuapp.com/api/npi/" + data[i]["npi number on application"]
-        //const npi_promise = await rp(npi_url).catch(console.log("Error"));
-        //var res_dict_npi =JSON.parse(npi_promise)
-        //dict[0][" npi- dentists full name"] = npi_promise
+        try{
+            const npi_promise = await rp(npi_url).catch(console.log("NPI"));
+            var res_dict_npi =JSON.parse(npi_promise)
+            dict[0][" npi- dentists full name"] = npi_promise
+        }
+        catch
+        {
+            console.log("NPI")
+        }
+        
+        
 
         oig_url = "http://pg-hackathon.herokuapp.com/api/oig?first_name="+data[i]["first name"]+"&last_name="+data[i]["last name"]+ "&is_api=true"
-        const oig_promise = await rp(oig_url).catch(console.log("Error"));
+        const oig_promise = await rp(oig_url).catch(console.log("OIG"));
         var res_dict_oig =JSON.parse(oig_promise)
         dict[0]["oig"] = res_dict_oig["Result"]
         dict[0]["oig verified date"] = today
@@ -220,7 +228,7 @@ async function main_2(subject)
             }
         });
 
-        var attachments = [{filename: 'output_file.xlsx', path: __dirname + '/uploads/output_file.xlsx'}];
+        var attachments = [{filename: 'output.xlsx', path: __dirname + '/uploads/output.xlsx'}];
 
         var mailOptions = {
             from: 'imaginehackathon@gmail.com',
